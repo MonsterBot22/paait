@@ -22,14 +22,15 @@
             <div class="card bg-transparent mb-3" style="max-width: 18rem;">
               <div class="card-header">
                 <center>
-                  <img src="" style="border-radius: 100%; max-width: 100%; height: 3.5rem;">
+                  <img src="<%= guild.members.cache.get(x.sharers[0]).user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; max-width: 100%; height: 3.5rem;">
                 </center>
+                <b><center><%= guild.members.cache.get(x.sharers[0]).user.username %></center></b>
               </div>
               <div class="card-body">
                 <p class="card-text avatar"><%= x.name %></p>
                 <p class="card-text avatar"><%= x.desc %></p>
                 <p class="card-text"><%= moment(x.date).add(3, "hours").format("LLL") %></p>
-                <a class="button1 nav-link" style="width: 100%; filter: invert(1);" href="/gold/<%= x.id %>"><b>Kodu İncele</b></a>
+                <a class="button1 nav-link" style="width: 100%; filter: invert(1);" href="/diamond/<%= x.id %>"><b>Kodu İncele</b></a>
               </div>
             </div>
           </div>
