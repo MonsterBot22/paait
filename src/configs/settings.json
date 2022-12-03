@@ -1,7 +1,7 @@
 {
   "mongoURL": "mongodb+srv://sonblok123:sonblok123@cluster0.c1u0i.mongodb.net/sonblok123?retryWrites=true&w=majority",
-  "clientID": "987372212845674536",
-  "token": "MTA0ODY0NDUzNjY4MDg1NzY0MQ.GP-Oft.uCa810iUj_BS1JNcqFB_p5BEGvZJe77uNDx0AA",
+  "clientID": "1048644536680857641",
+  "token": "MTA0ODY0NDUzNjY4MDg1NzY0MQ.GGQO5y.JYIxceeCfpTlUy5yZvic4tphvgUZqCEMFFawf8",
   "secret": "PPTwAwvVk4xkcGgitYc6ImnaqqmpKyBr",
   "callbackURL": "https://psychopath-techonolgy.tk/callback"
 }
