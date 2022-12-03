@@ -4,7 +4,7 @@
     <%- include('partials/_loader'); -%>
     <div class="container" style="min-height: 100vh;">
       <h1 class="text-center" style="margin-top: 100px;">
-        Normal Kodlar
+       Normal Kodlar
       </h1>
       <h5 class="text-center">
         Kodlara bakmadan önce <a href="/information">Bilgilendirme</a> kısmını okumayı unutmayın!
@@ -22,9 +22,8 @@
             <div class="card bg-transparent mb-3" style="max-width: 18rem;">
               <div class="card-header">
                 <center>
-                  <img src="<%= guild.members.cache.get(x.sharers[0]).user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; max-width: 100%; height: 3.5rem;">
+                  <img src="" style="border-radius: 100%; max-width: 100%; height: 3.5rem;">
                 </center>
-                <b><center><%= guild.members.cache.get(x.sharers[0]).user.username %></center></b>
               </div>
               <div class="card-body">
                 <p class="card-text avatar"><%= x.name %></p>

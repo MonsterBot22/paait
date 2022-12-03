@@ -290,7 +290,7 @@ app.post("/sharing", async (req, res) => {
 app.get("/normal", async (req, res) => {
   const codeData = require("./src/schemas/code");
   const data = await codeData.find({ rank: "normal" }).sort({ date: -1 });
-  res.render("normalCodes", {
+  res.render("normal", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     data,
