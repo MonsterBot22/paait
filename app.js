@@ -226,7 +226,7 @@ app.post("/sharing", async (req, res) => {
   const codeData = require("./src/schemas/code");
   const userData = require("./src/schemas/user");
   if (member && conf.notCodeSharer.some((x) => member.roles.cache.has(x) || member.user.id === x)) return error(res, 502, "Kod paylaşma iznin bulunmuyor!");
-  if (cooldown.get(req.user.id) && cooldown.get(req.user.id).count >= 3) return error(res, 429, "10 dakika içerisinde en fazla 3 kod paylaşabilirsin!");
+  if (cooldown.get(req.user.id) && cooldown.get(req.user.id).count >= 30) return error(res, 429, "10 dakika içerisinde en fazla 3 kod paylaşabilirsin!");
   const id = randomStr(8);
   
   let code = req.body;
