@@ -588,31 +588,6 @@ app.get("/error", (req, res) => {
 });
 
 
- const profiledata = require("./schemase.js");
-    app.get("/user/:userID", checkMaintence, async (req, res) => {
-      client.users.fetch(req.params.userID).then(async a => {
-      const pdata = await profiledata.findOne({userID: a.id});
-      const botdata = await botsdata.find()
-      const member = a;
-      const uptimecount = await uptimedata.find({userID: a.id});
-      renderTemplate(res, req, "profile/profile.ejs", {member, req, roles, config, uptimecount, pdata, botdata});
-      });
-    });
-    app.get("/user/:userID/edit", checkMaintence, checkAuth, async (req, res) => {
-      client.users.fetch(req.user.id).then(async member => {
-      const pdata = await profiledata.findOne({userID: member.id});
-      renderTemplate(res, req, "profile/profile-edit.ejs", {member, req, roles, config, pdata, member});
-      });
-    });
-    app.post("/user/:userID/edit", checkMaintence, checkAuth, async (req, res) => {
-      let rBody = req.body;
-  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {biography: rBody['biography']}}, {upsert:true})
-  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {website: rBody['website']}}, {upsert:true})
-  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {github: rBody['github']}}, {upsert:true})
-  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {twitter: rBody['twitter']}}, {upsert:true})
-  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {instagram: rBody['instagram']}}, {upsert:true})
-      return res.redirect('?success=true&message=Your profile has been successfully edited.');
-    });
 
 
 app.use((req, res) => error(res, 404, "Sayfa bulunamadı!"));
