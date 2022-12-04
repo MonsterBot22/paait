@@ -118,7 +118,8 @@ app.get("/information", (req, res) =>
   })
 );
 
-app.get("/profile/:userID", async (req, res) => {
+
+ app.get("/profile/:userID", async (req, res) => {
   const userID = req.params.userID;
   const guild = client.guilds.cache.get(conf.guildID);
   const member = guild.members.cache.get(userID);
@@ -144,7 +145,6 @@ app.get("/profile/:userID", async (req, res) => {
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   });
 });
-
 app.get("/admin", async (req, res) => {
   if (!req.user) return error(res, 138, "Bu sayfaya girmek için siteye giriş yapmalısın!");
   const guild = client.guilds.cache.get(conf.guildID);
