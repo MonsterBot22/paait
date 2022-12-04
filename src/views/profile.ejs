@@ -47,7 +47,92 @@
         document.body.classList.add(localStorage.getItem("mode"));
         document.getElementById("mode-btn").checked = true;
       }
+      
+      
+      
+      
     </script>
+          
+          
+ <br>
+            <% if(pdata) {%>
+            <p class="UserDesc mt-1 has-text-white"> <%= pdata.biography || "Biyografi ayarlanmamış" %></p>
+            <% } %>
+		<br>
+	    <%if(req.user) {%>
+            <% if(req.user.id === member.id) {%>
+                <a class="btn btn-primary" href="/user/<%=member.id%>/edit"><i class="fad fa-pencil"></i>Düzenle</a>
+                <% } %>
+		<% } %>
+        </div>
+        <div class="is-4 mt-1 column">
+            <% if(pdata) {%>
+                <% if(pdata.twitter) {%>
+                    <a href="/redirect?type=website&url=https://twitter.com/<%= pdata.twitter %>" class="is-flex mt-1">
+                      <div style="background: #2077aa" class="box-2-p"><i class="fab fa-twitter is-size-6 mt-1"></i></div>
+                      <p style="background: #019ffa" class="box-2">Twitter</p>
+                    </a>
+                <% } %>
+                <% if(pdata.instagram) {%>
+                <a href="/redirect?type=website&url=https://instagram.com/<%= pdata.instagram %>" class="is-flex mt-1">
+                    <div style="background: #923453" class="box-2-p"><i class="fab fa-instagram is-size-6 mt-1"></i></div>
+                    <p style="background: #E1306C" class="box-2">Instagram</p>
+                </a>
+                 <% } %>
+                  <% if(pdata.website) {%>
+                  <a href="/redirect?type=website&url=<%= pdata.website %>" class="is-flex mt-1">
+                    <div style="background: rgb(33, 167, 111);" class="box-2-p"><i class="fa fa-globe is-size-6 mt-1"></i></div>
+                    <p style="background: rgb(8, 187, 112);"class="box-2">Website</p>
+                  </a>
+                  <% } %>
+                  <% if(pdata.github) {%>
+                  <a href="/redirect?type=website&url=https://github.com/<%= pdata.github %>" class="is-flex mt-1">
+                    <div style="background: rgb(0, 0, 0);" class="box-2-p"><i class="fab fa-github is-size-6 mt-1"></i></div>
+                    <p style="background: rgb(8, 8, 8);" class="box-2">Github</p>
+                  </a>
+                  <% } %>
+            <% } %>
+        </div>
+        <div class="column is-25">
+            <br>
+            <h3 style="margin-bottom: -2%; color: #fff;">
+                <i class="fad fa-robot" translate="no" data-tippy-content="Test"></i> <%= member.username %>'s Bots
+            </h3>
+             <hr class="vcodes_divider">
+            <div class="columns is-multiline is-desktop mt-5 is-variable is-7">
+                <% botdata.filter(a => (member.id === a.ownerID || a.coowners.includes(member.id))).sort((a, b) => b.votes - a.votes).map(a => {%>
+                    <div class="column is-4 mb-5">    
+                             
+                       <div style="background-color: #23272a;" class="box cardvcodesbotCard">
+                         <div>
+                           <img draggable="false" onerror="imgError(this);" alt="<%= a.username %>" src="<%= a.avatar %>" class="is-pulled-left cardvcodesbotIMG z">
+                         </div>
+                         <div class="is-pulled-right is-inline-block">
+                            <span class="tag is-dark mt-1 w-100">Votes: <%= a.votes || "0" %></span>
+                            </div>
+                          <br><br><br>
+                         <p translate="no" style="margin-top: 5px;" class="cardvcodesbotName has-text-white mt-3">
+                        <%= a.username %>
+                        <% if(a.certificate == "Certified") {%>
+                            <a data-tooltip="Certified Bot"
+                            data-tooltip-location="top"><i class="fad fa-badge-check has-text-primary"></i></a>
+                         <% } %>
+                         <% if(a.premium == "Premium") {%>
+                            <a data-tooltip="Premium Bot"
+                            data-tooltip-location="top"><i class="fad fa-diamond has-text-primary"></i></a>
+                         <% } %>
+                         </p>   
+                         <p style="margin-top: -10px;" class="cardvcodesbotDesc"><%= a.shortDesc %></p>
+                         <center>
+
+                            <div class="cardvcodesbotButtons is-flex">
+                                <a href="/bot/<%= a.botID %>" class="cardBtn1 btn-cardd"><i class="fad fa-eye"></i>&nbsp;View</a>
+                                <a href="/redirect?type=botInvite&botID=<%= a.botID %>" class="cardBtn2 btn-cardd"><i class="fad fa-user-plus"></i>&nbsp;Invite</a>
+                            </div>
+                        </center>
+                       </div>
+                   </div>
+                <% }) %>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/index.js"></script>

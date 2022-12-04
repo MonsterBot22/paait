@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const schema = Schema({
   userID: { type: String, default: "" },
   codes: { type: Array, default: [] },
-  getLikeCount: { type: Number, default: 0 }
+  getLikeCount: { type: Number, default: 0 },
   biography: {type: String, default: null},
 website: {type: String, default: null},
 github: {type: String, default: null},
