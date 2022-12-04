@@ -312,37 +312,7 @@ app.get("/gold", async (req, res) => {
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   });
 });
-    const uptimedata = require("./src/schemas/uptime.js");
-    app.get("/uptime/add",  async (req,res) => {
-      res.render(res, req, "adduptime", {req});
-    })
-    app.post("/uptime/add", async (req,res) => {
-      const rBody = req.body;
-      if(!rBody['link']) { 
-          res.redirect('?error=true&message=Write a any link.')
-      } else {
-          if(!rBody['link'].match('https')) return res.redirect('?error=true&message=You must enter a valid link.')
-          const dde = await uptimedata.findOne({link: rBody['link']});
-          const dd = await uptimedata.find({userID: req.user.id});
-          if(dd.length > 9) res.redirect('?error=true&message=Your uptime limit has reached.')
-  
-          
-        res.redirect('?success=true&message=Bağlantınız uptime sistemine başarıyla eklendi.');
-      }
-    })
-    app.get("/uptime/links", async (req,res) => {
-      let uptimes = await uptimedata.find({ userID: req.user.id })
-      res.render(res, req, "mylinks", {req,  uptimes});
-     })
-     app.get("/uptime/:code/delete",  async (req,res) => {
-      const dde = await uptimedata.findOne({code: req.params.code});
-      if(!dde) return res.redirect('/uptime/links?error=true&message=There is no such site in the system.')
-      uptimedata.findOne({ 'code': req.params.code }, async function (err, docs) { 
-              if(docs.userID != req.user.id) return res.redirect('/uptime/links?error=true&message=The link you tried to delete does not belong to you.');
-              res.redirect('/uptime/links?success=true&message=The link has been successfully deleted from the system.');
-              await uptimedata.deleteOne({ code: req.params.code });
-       })
-     })
+
 app.get("/diamond", async (req, res) => {
   const codeData = require("./src/schemas/code");
   const data = await codeData.find({ rank: "diamond" }).sort({ date: -1 });
@@ -605,6 +575,8 @@ app.post("/like", async (req, res) => {
   }
 });
 
+
+
 app.get("/error", (req, res) => {
   res.render("error", {
     user: req.user,
@@ -614,6 +586,34 @@ app.get("/error", (req, res) => {
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   });
 });
+
+
+ const profiledata = require("./schemase.js");
+    app.get("/user/:userID", checkMaintence, async (req, res) => {
+      client.users.fetch(req.params.userID).then(async a => {
+      const pdata = await profiledata.findOne({userID: a.id});
+      const botdata = await botsdata.find()
+      const member = a;
+      const uptimecount = await uptimedata.find({userID: a.id});
+      renderTemplate(res, req, "profile/profile.ejs", {member, req, roles, config, uptimecount, pdata, botdata});
+      });
+    });
+    app.get("/user/:userID/edit", checkMaintence, checkAuth, async (req, res) => {
+      client.users.fetch(req.user.id).then(async member => {
+      const pdata = await profiledata.findOne({userID: member.id});
+      renderTemplate(res, req, "profile/profile-edit.ejs", {member, req, roles, config, pdata, member});
+      });
+    });
+    app.post("/user/:userID/edit", checkMaintence, checkAuth, async (req, res) => {
+      let rBody = req.body;
+  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {biography: rBody['biography']}}, {upsert:true})
+  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {website: rBody['website']}}, {upsert:true})
+  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {github: rBody['github']}}, {upsert:true})
+  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {twitter: rBody['twitter']}}, {upsert:true})
+  await profiledata.findOneAndUpdate({userID: req.user.id}, {$set: {instagram: rBody['instagram']}}, {upsert:true})
+      return res.redirect('?success=true&message=Your profile has been successfully edited.');
+    });
+
 
 app.use((req, res) => error(res, 404, "Sayfa bulunamadı!"));
 // </> Pages </>
