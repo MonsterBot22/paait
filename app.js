@@ -469,7 +469,7 @@ app.get("/delete/:rank/:id", async (req, res) => {
 • Kodu silen: ${member.toString()}
   `)
   .setColor("RED")
-  channel.send(embed);
+   client.channels.cache.get(conf.codeLog).send(embed);
   
   const data = await userData.findOne({ userID: req.user.id });
   if (data) {
@@ -586,6 +586,8 @@ app.get("/error", (req, res) => {
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   });
 });
+
+
 
 
 
