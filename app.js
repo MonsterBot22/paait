@@ -486,9 +486,10 @@ app.get("/delete/:rank/:id", async (req, res) => {
   if (!member.hasPermission(8) || !code.sharers.includes(req.user.id)) return error(res, 401, "Bu sayfaya girmek için yetkin bulunmuyor!");
   
   
-  const channel = client.channels.cache.get(conf.codeLog);
-  const embed = new MessageEmbed()
-  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
+client.channels.cache.get(conf.codeLog).send(
+      new MessageEmbed()
+
+   .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
   .setThumbnail(guild.iconURL({ dynamic: true }))
   .setTitle(`${code.rank} kategorisinde bir kod silindi!`)
   .setDescription(`
@@ -496,10 +497,8 @@ app.get("/delete/:rank/:id", async (req, res) => {
 • Kod Açıklaması: ${code.desc}
 • Kodu paylaşan: ${guild.members.cache.get(code.sharers[0]) ? guild.members.cache.get(code.sharers[0]).toString() : client.users.fetch(code.sharers[0]).then(x => x.username)}
 • Kodu silen: ${member.toString()}
-  `)
-  .setColor("RED")
-   client.channels.cache.get(conf.codeLog).send(embed);
-  
+  `));
+
   const data = await userData.findOne({ userID: req.user.id });
   if (data) {
     data.codes = data.codes.filter(x => x.id !== req.params.id);
