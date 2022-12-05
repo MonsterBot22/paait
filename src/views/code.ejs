@@ -31,8 +31,8 @@
         </span>
       </a> 
       <% if (data.mainCode) { %>
-      <h2 style="text-align: left;">Main Kodu: <a onclick="kopyala('kaynak')"><i class="far fa-copy" id="mainIcon"></i></a></h2>
-      <pre style="height: 40pc; overflow-y: scroll"><code class="language-js" id="kaynak"><%= data.mainCode %></code></pre>
+      <h2 style="text-align: left;">Main Kodu: <a onclick="copy('mainIcon')"><i class="far fa-copy" id="mainIcon"></i></a></h2>
+      <pre style="height: 40pc; overflow-y: scroll"><code class="language-js" id="mainCode"><%= data.mainCode %></code></pre>
       <br>
       <% } %>
       <% if (data.command) { %>
@@ -67,19 +67,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
     <script src="/index.js"></script>
-
-   <script>
-   function kopyala(elemanID){
-  var cop = document.createElement("div");
-  cop.setAttribute("contentEditable", true);
-  cop.innerHTML = document.getElementById(elemanID).innerHTML;
-  cop.setAttribute("onfocus", "document.execCommand('selectAll',false,null)"); 
-  document.body.appendChild(cop);
-  cop.focus();
-  document.execCommand("copy");
-  document.body.removeChild(cop);
-}
-   </script>
     <%- include('partials/_footer'); -%>
   </body>
 </html>
