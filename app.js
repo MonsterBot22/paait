@@ -265,7 +265,7 @@ app.post("/sharing", async (req, res) => {
     rank: code.rank,
     date: code.date
   }).save();
-    const channel = guild.channels.cache.get(conf.codeLog);
+const channel = guild.channels.cache.get(conf.codeLog);
   let color;
   if (code.rank === "normal") color = "#bfe1ff";
   else if (code.rank === "gold") color = "#F1C531";
@@ -285,7 +285,6 @@ app.post("/sharing", async (req, res) => {
   channel.send(embed);
   res.redirect(`/${code.rank}/${id}`);
 });
-
 
 app.get("/normal", async (req, res) => {
   const codeData = require("./src/schemas/code");
