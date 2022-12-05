@@ -486,20 +486,27 @@ app.get("/delete/:rank/:id", async (req, res) => {
   if (!member.hasPermission(8) || !code.sharers.includes(req.user.id)) return error(res, 401, "Bu sayfaya girmek için yetkin bulunmuyor!");
   
   
-client.channels.cache.get(conf.codeLog).send(
-      new MessageEmbed()
-
-   .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
+const channel = guild.channels.cache.get(conf.codeLog);
+  let color;
+  if (code.rank === "normal") color = "#bfe1ff";
+  else if (code.rank === "gold") color = "#F1C531";
+  else if (code.rank === "diamond") color = "#3998DB";
+  else if (code.rank === "ready") color = "#f80000";
+  else if (code.rank === "fromyou") color = ""
+  const embed = new MessageEmbed()
+  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
   .setThumbnail(guild.iconURL({ dynamic: true }))
-  .setTitle(`${code.rank} kategorisinde bir kod silindi!`)
+  .setTitle(`${code.rank} kategorisinde bir kod paylaşıldı!`)
   .setDescription(`
-• Kod adı: ${code.name}
-• Kod Açıklaması: ${code.desc}
-• Kodu paylaşan: ${guild.members.cache.get(code.sharers[0]) ? guild.members.cache.get(code.sharers[0]).toString() : client.users.fetch(code.sharers[0]).then(x => x.username)}
-• Kodu silen: ${member.toString()}
-  `));
-
-  const data = await userData.findOne({ userID: req.user.id });
+  • Kod adı: [${code.name}](https://${conf.domain}/${code.rank})
+  • Kod Açıklaması: ${code.desc}
+  • Kodu paylaşan: ${member.toString()}
+  `)
+  .setColor(color)
+  channel.send(embed);
+  res.redirect(`/${code.rank}`);
+  
+    const data = await userData.findOne({ userID: req.user.id });
   if (data) {
     data.codes = data.codes.filter(x => x.id !== req.params.id);
     data.save();
@@ -507,7 +514,10 @@ client.channels.cache.get(conf.codeLog).send(
   
   code.deleteOne();
   res.redirect("/");
+
 });
+
+
 
 app.get("/edit/:rank/:id", async (req, res) => {
   if (!req.user) return error(res, 138, "Bu sayfaya girmek için siteye giriş yapmalısın!");
