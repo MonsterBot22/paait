@@ -42,11 +42,11 @@
     </ul>
 
      <% if(user) {%>
-                <% if ((client.guilds.cache.get(conf.guildID).members.cache.get(user.id)) {%>
-                    <% if (client.guilds.cache.get(conf.guildID).members.cache.get(user.id).member.roles.cache.has(conf.adminRole) || (client.guilds.cache.get(conf.guildID).members.cache.get(user.id).member.roles.cache.has(conf.adminRole)) { %>
-                        <li class="nav-item active"><a class="nav-link" title="PsychoPath Techonology" href="/admin"><i class="fad fa-hammer"></i>&nbsp;Admin Panel</a></li>
-                    <% } %>
-                    <% } %>
+           <ul class="navbar-nav" style="margin-right: 20px;">
+
+      <li class="nav-item">
+      <a class="nav-link" href="/admin">Admin Paneli</a>
+      </li>
       <li class="deneme nav-item">
       <a class="nav-link" href="/share">Kod Paylaş</a>
       </li>
