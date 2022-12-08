@@ -150,7 +150,7 @@ app.get("/admin", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = guild.members.cache.get(req.user.id);
   if (!member) return error(res, 138, "Bu sayfaya girmek için sunuzumuza katılmalısın!");
-  if (member && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole))  return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
+   if (member && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole))  return error(res, 501, "Bu sayfaya girmek için yetkin bulunmuyor!");
   const codeData = require("./src/schemas/code");
   const code = await codeData.find({}).sort({ date: -1 });
   res.render("admin", {
