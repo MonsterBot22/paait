@@ -150,7 +150,7 @@ app.get("/admin", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = guild.members.cache.get(req.user.id);
   if (!member) return error(res, 138, "Bu sayfaya girmek için sunuzumuza katılmalısın!");
-  if (!member.hasPermission(8)) return error(res, 401, "Bu sayfaya girmek için yetkin bulunmuyor!");
+  if (member && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole))  return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
   const codeData = require("./src/schemas/code");
   const code = await codeData.find({}).sort({ date: -1 });
   res.render("admin", {
@@ -495,7 +495,7 @@ const channel = guild.channels.cache.get(conf.codeLog);
   const embed = new MessageEmbed()
   .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
   .setThumbnail(guild.iconURL({ dynamic: true }))
-  .setTitle(`${code.rank} kategorisinde bir kod paylaşıldı!`)
+  .setTitle(`${code.rank} kategorisinde bir kod silindi!`)
   .setDescription(`
   • Kod adı: [${code.name}](https://${conf.domain}/${code.rank})
   • Kod Açıklaması: ${code.desc}
