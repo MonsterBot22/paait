@@ -20,6 +20,9 @@
     "passport-discord": "^0.1.4",
     "path": "^0.12.7"
   },
+  "engines": {
+    "node": "17.x"
+},
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.21.0",

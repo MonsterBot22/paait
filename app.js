@@ -384,7 +384,7 @@ app.get("/normal/:codeID", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kodları görebilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if (member && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)) return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
+  if (member && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)  && !member.roles.cache.has(conf.normalRole))  return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
   const codeID = req.params.codeID;
   if (!codeID) return res.redirect("/");
   const codeData = require("./src/schemas/code");
