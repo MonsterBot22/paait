@@ -4,6 +4,8 @@ const express = require("express");
 const app = express();
 const conf = require("./src/configs/config.json");
 const settings = require("./src/configs/settings.json");
+const settings2 = require("./.env");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const ejs = require("ejs");
