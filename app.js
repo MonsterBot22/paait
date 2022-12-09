@@ -40,7 +40,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 const scopes = ["identify", "guilds"];
 passport.use(new Strategy({
       clientID: settings.clientID,
-      clientSecret: settings.secret,
+      clientSecret: client.login(process.env.secret),
       callbackURL: settings.callbackURL,
       scope: scopes,
     },
@@ -652,7 +652,7 @@ const randomStr = (length) => {
 // </> Functions </>
 
 app.listen(process.env.PORT || 3000);
-client.login(settings.token).catch((err) => console.log(err));
+client.login(settings2.token).catch((err) => console.log(err));
 
 client.on("ready", () => {
   console.log("Site Hazır!");
