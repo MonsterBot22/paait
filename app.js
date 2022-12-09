@@ -94,7 +94,7 @@ app.get("/discord", (req, res) =>
   })
 );
 
-app.get("/authorized", async (req, res) => {
+app.get("/yetkililer", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const owners = guild.members.cache.filter(x => x.roles.cache.has(conf.ownerRole));
   const admins = guild.members.cache.filter(x => x.roles.cache.has(conf.adminRole) && !owners.find(b => x.user.id == b));
