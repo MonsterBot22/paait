@@ -28,7 +28,7 @@
       <h3>
         Paylaştığı kodlar:<br>
         <% data.codes.sort((a, b) => b.date - a.date).map(x => { %>
-        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %></a>
+        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %> |</a>
         <% }); %>
       </h3>
       <% } %>
