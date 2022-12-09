@@ -3,9 +3,7 @@ const client = new Client();
 const express = require("express");
 const app = express();
 const conf = require("./src/configs/config.json");
-const settings = require("./src/configs/settings.json");
-const settings2 = require("./.env");
-
+const settings = require("./src/public/style.json");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const ejs = require("ejs");
@@ -40,7 +38,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 const scopes = ["identify", "guilds"];
 passport.use(new Strategy({
       clientID: settings.clientID,
-      clientSecret: client.login(process.env.secret),
+      clientSecret: settings.secret,
       callbackURL: settings.callbackURL,
       scope: scopes,
     },
@@ -316,7 +314,7 @@ app.get("/bdfd/:codeID", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kodları görebilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if (member && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)) return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
+  if (member && !member.roles.cache.has(conf.booster)  && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)) return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
   const codeID = req.params.codeID;
   if (!codeID) return res.redirect("/");
   const codeData = require("./src/schemas/code");
@@ -652,7 +650,7 @@ const randomStr = (length) => {
 // </> Functions </>
 
 app.listen(process.env.PORT || 3000);
-client.login(settings2.token).catch((err) => console.log(err));
+client.login(settings.token).catch((err) => console.log(err));
 
 client.on("ready", () => {
   console.log("Site Hazır!");
