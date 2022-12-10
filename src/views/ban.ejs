@@ -30,8 +30,8 @@
         <% }); %>
       </h5>
       <br>
-      <% if (!data.bug) { %>
-      <a href="/bug/<%= data.id %>"><span class="fas fa-exclamation-triangle" style="color:#FF3C41; float:right; margin-left: 20px; cursor: pointer;"></span></a>
+      <% if (!data.bs) { %>
+      <a href="/ban-aff-form/<%= data.id %>"><span class="fas fa-exclamation-triangle" style="color:#FF3C41; float:right; margin-left: 20px; cursor: pointer;"></span></a>
       <% }  %>
     <!--  <a href="javascript:$('#likeForm').submit()" id="likeButton"> 
         <span id="like" style="color:#FF3C41; float:right" class="<%= data.likedUsers.includes(user.id) ? 'fas fa-heart' : 'far fa-heart' %>">

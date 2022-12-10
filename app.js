@@ -317,11 +317,10 @@ app.get("/ban-affı", async (req, res) => {
 app.get("/ban/:codeID", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if (member && !member.roles.cache.has(conf.bdfd)  && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)) return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
   const codeID = req.params.codeID;
   if (!codeID) return res.redirect("/");
   const codeData = require("./src/schemas/code");
-  const code = await codeData.findOne({ rank: "bdfd", id: codeID });
+  const code = await codeData.findOne({ rank: "ban", id: codeID });
   if (!code) return error(res, 404, codeID+" ID'li bir kod bulunmuyor!");
   res.render("code", {
     user: req.user,
@@ -333,6 +332,47 @@ app.get("/ban/:codeID", async (req, res) => {
 });
 
 
+
+
+
+
+
+
+
+app.get("/ban-aff-form", async (req, res) => {
+  res.render("banaff2", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
+  });
+});
+
+app.post("/ban-aff-form", async (req, res) => {
+  const guild = client.guilds.cache.get(conf.guildID);
+  const member = req.user ? guild.members.cache.get(req.user.id) : null;
+  const codeData = require("./src/schemas/code");
+  console.log(req.body)
+  const code = await codeData.findOne({ id: req.body.id });
+  if (!code) return error(res, 404, req.body.id+" ID'li bir kod bulunamadı!");
+  
+  if (!code.banid2) {
+    code.banid2 = req.body.banid2;
+    code.save();
+  }
+  
+  const channel = client.channels.cache.get(conf.bugLog);
+  const embed = new MessageEmbed()
+  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
+  .setThumbnail(guild.iconURL({ dynamic: true }))
+  .setTitle("Bir bug bildirildi!")
+  .setDescription(`
+• UNBan isteyen: ${guild.members.cache.get(req.user.id).toString()}
+• Bug: ${req.body.banid2}
+  `)
+  .setColor("RED")
+  channel.send(embed);
+  res.redirect(`/${code.rank}/${req.body.id}`);
+});
 //ban
 
 app.get("/share", async (req, res) => {
