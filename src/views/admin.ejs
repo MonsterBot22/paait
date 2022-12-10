@@ -1,6 +1,12 @@
 <html>
   <body>
     <%- include('partials/_header'); -%>
+        	<div class="loader-wrapper">
+      	<span class="loader"><span class="loader-inner"></span></span>
+  	</div>  
+
+          <%- include('partials/_loader'); -%>
+
     <div class="container" style="min-height: 78vh; text-align: center;">
       <div class="row row-cols-1 row-cols-md-2" style="margin-top: 100px;">
       <h4>
@@ -40,6 +46,7 @@
         document.getElementById("mode-btn").checked = true;
       }
     </script>
+        
     <script src="/index.js"></script>
     <%- include('partials/_footer'); -%>
   </body>
