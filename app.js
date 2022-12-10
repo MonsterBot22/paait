@@ -212,7 +212,13 @@ app.post("/bug", async (req, res) => {
 
 
 
-
+app.get("/ban-affi-bilgi", (req, res) =>
+  res.render("ban-bilgi", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  })
+);
 
 
 

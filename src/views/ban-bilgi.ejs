@@ -1,0 +1,42 @@
+<html>
+  <body>
+    <%- include('partials/_header'); -%>
+            	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
+
+  	<div class="loader-wrapper">
+      	<span class="loader"><span class="loader-inner"></span></span>
+  	</div>  
+              	<script>
+  	// PRELOADER EFFECT
+    	$(window).on("load",function(){
+     	$(".loader-wrapper").fadeOut("slow");
+    	});
+  	</script>
+  	<script>
+  		// ANIMATE ON SCROLL
+  		AOS.init();
+	</script>
+    <div class="info">
+      <h1>Ban Affı</h1>
+      <br>
+      <h5>
+        <br><br>
+        <span style="color: #e99e9e;">Haksız yere banladığını düşünüyorsan butona bas</span>:
+        <br>
+          <button type="submit" class="btn btn-outline-primary btn-lg" href "https://psychopath-techonology.ml/ban-affi-forum"style="width: 100%;">			<a href="https://psychopath-techonology.ml/ban-affi-forum" style="text-decoration:none;"target="_blank">Başvur</a></button>
+
+      </h5>
+    </div>
+
+    <script>
+      if (localStorage.getItem("mode") != "") {
+        document.body.classList.add(localStorage.getItem("mode"));
+        document.getElementById("mode-btn").checked = true;
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/index.js"></script>
+    <%- include('partials/_footer'); -%>
+  </body>
+</html>
