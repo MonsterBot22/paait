@@ -223,6 +223,84 @@ app.get("/ban-affi-bilgi", (req, res) =>
 
 
 
+
+
+
+
+app.get("/ban-affi", async (req, res) => {
+  res.render("ban-başvur", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
+});
+
+app.post("/sharing", async (req, res) => {
+  const guild = client.guilds.cache.get(conf.guildID);
+  const member = req.user ? guild.members.cache.get(req.user.id) : null;
+  const codeData = require("./src/schemas/code");
+  const userData = require("./src/schemas/user");
+  const id = randomStr(8);
+  
+  let code = req.body;
+  code.id = id;
+  code.date = Date.now();
+  if (!code.sharers) code.sharers = req.user.id;
+  code.sharers = code.sharers.trim().split(" ").filter(x => guild.members.cache.get(x));
+  if (code.sharers && !code.sharers.includes(req.user.id)) code.sharers.unshift(req.user.id);
+  if (!code.modules) code.modules = "discord.js";
+  if (!code.mainCode || code.mainCode && (code.mainCode.trim().toLowerCase() === "yok" || code.mainCode.trim() === "-")) code.mainCode = "";
+  if (!code.command || code.command && (code.command.trim().toLowerCase() === "yok" || code.command.trim() === "-")) code.command = "";
+  cooldown.get(req.user.id) ? cooldown.set(req.user.id, { count: cooldown.get(req.user.id).count += 1 }) : cooldown.set(req.user.id, { count: 1 });
+  if (await cooldown.get(req.user.id).count === 1) setTimeout(() => cooldown.delete(req.user.id), 1000*60*10);
+  
+  code.sharers.map(async x => {
+    const data = await userData.findOne({ userID: x });
+    if (!data) {
+      new userData({
+        userID: x,
+        codes: [code]
+      }).save();
+    } else {
+      data.codes.push(code);
+      data.save();
+    }
+  });
+  
+  let newCodeData = new codeData({
+    name: code.name,
+    id: code.id,
+    sharers: code.sharers,
+    desc: code.desc.trim(),
+    modules: code.modules.trim(),
+    mainCode: code.mainCode.trim(),
+    command: code.command.trim(),
+    rank: code.rank,
+    date: code.date
+  }).save();
+const channel = guild.channels.cache.get(conf.codeLog);
+  let color;
+  if (code.rank === "normal") color = "#bfe1ff";
+  else if (code.rank === "gold") color = "#F1C531";
+  else if (code.rank === "diamond") color = "#3998DB";
+  else if (code.rank === "ready") color = "#f80000";
+  else if (code.rank === "fromyou") color = ""
+  const embed = new MessageEmbed()
+  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
+  .setThumbnail(guild.iconURL({ dynamic: true }))
+  .setTitle(`${code.rank} kategorisinde bir kod paylaşıldı!`)
+  .setDescription(`
+  • Kod adı: [${code.name}](https://${conf.domain}/${code.rank}/${id})
+  • Kod Açıklaması: ${code.desc}
+  • Kodu paylaşan: ${member.toString()}
+  `)
+  .setColor(color)
+  channel.send(embed);
+  res.redirect(`/${code.rank}/${id}`);
+});
+
+
+
 //ban
 
 app.get("/share", async (req, res) => {

@@ -18,32 +18,19 @@
 	</script>
     <div class="container" style="margin-top: 100px;">
       <h1 class="text-center">
-          Kod Paylaşım
+Ban Affı
       </h1>
       <hr>
       <div class="bg-transparent">
-        <form action="/sharing" method="POST">
+        <form action="/ban-affi" method="POST">
           <div class="input-group">
-            <input type="text" class="form-control" name="name" placeholder="Kod adı" style="background: none; color: white;" required>
+            <input type="text" class="form-control" name="name" placeholder="Banlanma sebebini ve eklemek istediğini yaz" style="background: none; color: white;" required>
             <div class="input-group-append">
-              <% if (isStaff) { %>
-                <select class="custom-select bg-transparent" name="rank" id="rank_choice" style="background: none; color: red; height: 40px;" required>
-                  <option value="normal" selected>Normal</option>
 
-              <% } else { %>
-                <select class="custom-select bg-dark" name="rank" id="rank_choice" style="background: none; color: white;" required>
-                  <option value="fromyou" selected>Sizden Gelenler</option>
-                </select>
-              <% } %>
             </div>
           </div><br>
           <input type="text" class="form-control" name="sharers" placeholder="Kodu yazanlar (kodu yazanların id'sini boşluk bırakarak yazınız)" style="background: none; color: white;"><br>
-          <input type="text" class="form-control" name="modules" placeholder="Modüller" style="background: none; color: white;"><br>
-          <h3>Main Kodu:</h3>
-          <textarea class="form-control" style="resize: none; background: none; color: white;" name="mainCode" id="main_code" rows="20" placeholder="Main dosyasına atılacak kod." required></textarea>
           <br>
-          <h3>Komut:</h3>
-          <textarea class="form-control" style="resize: none; background: none; color: white;" name="command" id="komutlar_code" rows="20" placeholder="Komutlar klasörüne atılacak kod." required></textarea><br>
           <button type="submit" class="btn btn-outline-primary btn-lg" style="width: 100%;">Paylaş</button>
         </form>
       </div>
