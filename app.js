@@ -209,6 +209,20 @@ app.post("/bug", async (req, res) => {
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
 //ban
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get("/beta", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   res.render("banaff", {
@@ -282,6 +296,43 @@ const channel = guild.channels.cache.get(conf.bugLog);
   channel.send(embed);
   res.redirect(`/${code.rank}/${id}`);
 });
+
+
+
+
+
+
+app.get("/ban-affı", async (req, res) => {
+  const codeData = require("./src/schemas/code");
+  const data = await codeData.find({ rank: "ban" }).sort({ date: -1 });
+  res.render("ban", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    data,
+    moment,
+    guild: client.guilds.cache.get(conf.guildID),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
+});
+app.get("/ban/:codeID", async (req, res) => {
+  const guild = client.guilds.cache.get(conf.guildID);
+  const member = req.user ? guild.members.cache.get(req.user.id) : null;
+  if (member && !member.roles.cache.has(conf.bdfd)  && !member.roles.cache.has(conf.booster) && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole)) return error(res, 501, "Bu kodu görebilmek için gerekli rolleriniz bulunmamaktadır! Lütfen bilgilendirme sayfasını okuyunuz!");
+  const codeID = req.params.codeID;
+  if (!codeID) return res.redirect("/");
+  const codeData = require("./src/schemas/code");
+  const code = await codeData.findOne({ rank: "bdfd", id: codeID });
+  if (!code) return error(res, 404, codeID+" ID'li bir kod bulunmuyor!");
+  res.render("code", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    data: code,
+    guild,
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
+});
+
+
 //ban
 
 app.get("/share", async (req, res) => {

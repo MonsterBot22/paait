@@ -17,22 +17,20 @@
   		AOS.init();
 	</script>
     <div class="container" style="margin-top: 100px;">
-      <h1 class="text-center">Ban</h1>
-      <h4 class="text-center">Hatalı/kurallara aykırı kodları bildirerek bize yardımcı olabilirsin.</h4>
+      <h1 class="text-center">Ban Affı</h1>
+      <h4 class="text-center">Haksız yere banladığını düşünüyorsan başvurabilirsin.</h4>
       <hr>
       <div class="bg-transparent">
         <form action="/bug" method="POST">
-          <h3>Kod ID:</h3>
-          <% if (codeID) { %>
-          <input type="text" class="form-control" value="<%= codeID %>" name="id" placeholder="Kod ID" style="background: none; color: white;" required>
-          <% } else { %>
-          <input type="text" class="form-control" name="id" placeholder="Kod ID" style="background: none; color: white;" required>
-          <% } %>
+        
           <br>
-          <h3>Bulduğunuz hata:</h3>
-          <textarea class="form-control" style="resize: none; background: none; color: white;" name="bug" id="bug" rows="20" placeholder="Hata bulduysanız bulduğunuz hata, yoksa yetkililerin görmesi için yorumunuz." required></textarea>
+          <h3>Kullanıcı id'in:</h3>
+          <textarea class="form-control" style="resize: none; background: none; color: white;" name="banid" id="banid" rows="20" placeholder="İd'in" required></textarea>
           <br>
-          <button type="submit" class="btn btn-outline-primary btn-lg" style="width: 100%;">Paylaş</button>
+                    <h3>Neden banlandığını ve eklemek istediğin birşeyi yaz:</h3>
+          <textarea class="form-control" style="resize: none; background: none; color: white;" name="banid" id="banid" rows="20" placeholder="" required></textarea>
+          <br>
+          <button type="submit" class="btn btn-outline-primary btn-lg" style="width: 100%;">Gönder</button>
         </form>
       </div>
     </div>

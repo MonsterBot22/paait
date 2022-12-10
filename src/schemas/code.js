@@ -8,6 +8,7 @@ const schema = Schema({
   modules: { type: Array, default: [] },
   mainCode: { type: String, default: "" },
     mainCode2: { type: String, default: "" },
+    banid: { type: String, default: "" },
 
   command: { type: String, default: "" },
   rank: { type: String, default: "" },
