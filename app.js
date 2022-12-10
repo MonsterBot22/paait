@@ -208,30 +208,30 @@ app.post("/bug", async (req, res) => {
   channel.send(embed);
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
-app.get("/bug/:codeID", async (req, res) => {
-  if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
-  res.render("bug", {
+//ban
+app.get("/ban/:userID", async (req, res) => {
+  res.render("banaff", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
-    codeID: req.params.codeID
+    userID: req.params.userID
   });
 });
 
-app.get("/bug", async (req, res) => {
-  if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
-  res.render("bug", {
+app.get("/ban", async (req, res) => {
+  res.render("banaff", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
   });
 });
 
-app.post("/bug", async (req, res) => {
+app.post("/ban", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if (!req.user || !member) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   const codeData = require("./src/schemas/code");
+  const userData = require("./src/schemas/user");
+
   console.log(req.body)
   const code = await codeData.findOne({ id: req.body.id });
   if (!code) return error(res, 404, req.body.id+" ID'li bir kod bulunamadı!");
@@ -255,6 +255,15 @@ app.post("/bug", async (req, res) => {
   channel.send(embed);
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
+app.get("/bann", (req, res) =>
+  res.render("ban", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  })
+);
+//ban
+
 app.get("/share", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   res.render("shareCode", {
@@ -628,20 +637,7 @@ app.post("/edit", async (req, res) => {
 
 
   
-  const channel = client.channels.cache.get(conf.bugLog);
-  const embed = new MessageEmbed()
-  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
-  .setThumbnail(guild.iconURL({ dynamic: true }))
-  .setTitle("Bir bug bildirildi!")
-  .setDescription(`
-• Kod adı: ()
-• Bug bildiren: ${guild.members.cache.get(req.user.id).toString()}
-• Bug: ${req.body.bug}
-  `)
-  .setColor("RED")
-  channel.send(embed);
-  res.redirect();
-});
+ 
 
 app.post("/like", async (req, res) => {
   if (!req.user) return;
