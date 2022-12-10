@@ -225,95 +225,44 @@ app.get("/ban-affi-bilgi", (req, res) =>
 
 
 
-
-
-app.get("/ban-affi-form", async (req, res) => {
-  res.render("ban-başvur", {
+app.get("/bug", async (req, res) => {
+  if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
+  res.render("bug", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
   });
 });
 
-app.post("/ban-affi", async (req, res) => {
+app.post("/bug", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if (!req.user || !member) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
+  if (!req.user || !member) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   const codeData = require("./src/schemas/code");
-  const userData = require("./src/schemas/user");
-  if (member && conf.notCodeSharer.some((x) => member.roles.cache.has(x) || member.user.id === x)) return error(res, 502, "Kod paylaşma iznin bulunmuyor!");
-  if (cooldown.get(req.user.id) && cooldown.get(req.user.id).count >= 30) return error(res, 429, "10 dakika içerisinde en fazla 3 kod paylaşabilirsin!");
-  const id = randomStr(8);
+  console.log(req.body)
+  const code = await codeData.findOne({ id: req.body.id });
+  if (!code) return error(res, 404, req.body.id+" ID'li bir kod bulunamadı!");
   
-  let code = req.body;
-  code.id = id;
-  code.date = Date.now();
-  if (!code.sharers) code.sharers = req.user.id;
-  code.sharers = code.sharers.trim().split(" ").filter(x => guild.members.cache.get(x));
-  if (code.sharers && !code.sharers.includes(req.user.id)) code.sharers.unshift(req.user.id);
-  if (!code.modules) code.modules = "discord.js";
-  if (!code.mainCode || code.mainCode && (code.mainCode.trim().toLowerCase() === "yok" || code.mainCode.trim() === "-")) code.mainCode = "";
-  if (!code.command || code.command && (code.command.trim().toLowerCase() === "yok" || code.command.trim() === "-")) code.command = "";
-  cooldown.get(req.user.id) ? cooldown.set(req.user.id, { count: cooldown.get(req.user.id).count += 1 }) : cooldown.set(req.user.id, { count: 1 });
-  if (await cooldown.get(req.user.id).count === 1) setTimeout(() => cooldown.delete(req.user.id), 1000*60*10);
+  if (!code.bug) {
+    code.bug = req.body.bug;
+    code.save();
+  } else return error(res, 208, "Bu kodda zaten bug bildirildi!")
   
-  code.sharers.map(async x => {
-    const data = await userData.findOne({ userID: x });
-    if (!data) {
-      new userData({
-        userID: x,
-        codes: [code]
-      }).save();
-    } else {
-      data.codes.push(code);
-      data.save();
-    }
-  });
-  
-  let newCodeData = new codeData({
-    name: code.name,
-    id: code.id,
-    sharers: code.sharers,
-    desc: code.desc.trim(),
-    modules: code.modules.trim(),
-    mainCode: code.mainCode.trim(),
-    command: code.command.trim(),
-    rank: code.rank,
-    date: code.date
-  }).save();
-const channel = guild.channels.cache.get(conf.codeLog);
-  let color;
-  if (code.rank === "normal") color = "#bfe1ff";
-  else if (code.rank === "gold") color = "#F1C531";
-  else if (code.rank === "diamond") color = "#3998DB";
-  else if (code.rank === "ready") color = "#f80000";
-  else if (code.rank === "fromyou") color = ""
+  const channel = client.channels.cache.get(conf.bugLog);
   const embed = new MessageEmbed()
   .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
   .setThumbnail(guild.iconURL({ dynamic: true }))
-  .setTitle(`${code.rank} kategorisinde bir kod paylaşıldı!`)
+  .setTitle("Bir bug bildirildi!")
   .setDescription(`
-  • Kod adı: [${code.name}](https://${conf.domain}/${code.rank}/${id})
-  • Kod Açıklaması: ${code.desc}
-  • Kodu paylaşan: ${member.toString()}
+• Kod adı: [${code.name}](https://${conf.domain}/${code.rank}/${req.body.id})
+• Bug bildiren: ${guild.members.cache.get(req.user.id).toString()}
+• Bug: ${req.body.bug}
   `)
-  .setColor(color)
+  .setColor("RED")
   channel.send(embed);
-  res.redirect(`/${code.rank}/${id}`);
+  res.redirect(`/${code.rank}/${req.body.id}`);
 });
 
-app.get("/normal", async (req, res) => {
-  const codeData = require("./src/schemas/code");
-  const data = await codeData.find({ rank: "normal" }).sort({ date: -1 });
-  res.render("normal", {
-    user: req.user,
-    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    data,
-    moment,
-    guild: client.guilds.cache.get(conf.guildID),
-    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
-  });
-});
 
 
 //ban

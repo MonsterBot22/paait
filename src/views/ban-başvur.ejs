@@ -1,7 +1,7 @@
 <html>
   <body>
     <%- include('partials/_header'); -%>
-            	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
+      	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
 
   	<div class="loader-wrapper">
       	<span class="loader"><span class="loader-inner"></span></span>
@@ -17,19 +17,20 @@
   		AOS.init();
 	</script>
     <div class="container" style="margin-top: 100px;">
-      <h1 class="text-center">
-Ban Affı
-      </h1>
+      <h1 class="text-center">Hatalı/Yasak kod bildir</h1>
+      <h4 class="text-center">Hatalı/kurallara aykırı kodları bildirerek bize yardımcı olabilirsin.</h4>
       <hr>
       <div class="bg-transparent">
-        <form action="/ban-affi" method="POST">
-          <div class="input-group">
-            <input type="text" class="form-control" name="name" placeholder="Banlanma sebebini ve eklemek istediğini yaz" style="background: none; color: white;" required>
-            <div class="input-group-append">
-
-            </div>
-          </div><br>
-          <input type="text" class="form-control" name="sharers" placeholder="Kodu yazanlar (kodu yazanların id'sini boşluk bırakarak yazınız)" style="background: none; color: white;"><br>
+        <form action="/bug" method="POST">
+          <h3>Uddd</h3>
+          <% if (codeID) { %>
+          <input type="text" class="form-control" value="<%= codeID %>" name="id" placeholder="Kod ID" style="background: none; color: white;" required>
+          <% } else { %>
+          <input type="text" class="form-control" name="id" placeholder="Kod ID" style="background: none; color: white;" required>
+          <% } %>
+          <br>
+          <h3>Bulduğunuz hata:</h3>
+          <textarea class="form-control" style="resize: none; background: none; color: white;" name="bug" id="bug" rows="20" placeholder="Hata bulduysanız bulduğunuz hata, yoksa yetkililerin görmesi için yorumunuz." required></textarea>
           <br>
           <button type="submit" class="btn btn-outline-primary btn-lg" style="width: 100%;">Paylaş</button>
         </form>
@@ -42,13 +43,6 @@ Ban Affı
         document.body.classList.add(localStorage.getItem("mode"));
         document.getElementById("mode-btn").checked = true;
       }
-      
-      jQuery(function ($) {
-        var $inputs = $('textarea[name=mainCode],textarea[name=command]');
-        $inputs.on('input', function () {
-          $inputs.not(this).prop('required', !$(this).val().length);
-        });
-    });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/index.js"></script>
