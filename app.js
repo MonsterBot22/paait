@@ -238,13 +238,22 @@ app.get("/ban-affi-form", async (req, res) => {
 app.post("/ban-affi", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
+  if (!req.user || !member) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   const codeData = require("./src/schemas/code");
   const userData = require("./src/schemas/user");
+  if (member && conf.notCodeSharer.some((x) => member.roles.cache.has(x) || member.user.id === x)) return error(res, 502, "Kod paylaşma iznin bulunmuyor!");
+  if (cooldown.get(req.user.id) && cooldown.get(req.user.id).count >= 30) return error(res, 429, "10 dakika içerisinde en fazla 3 kod paylaşabilirsin!");
   const id = randomStr(8);
   
   let code = req.body;
   code.id = id;
   code.date = Date.now();
+  if (!code.sharers) code.sharers = req.user.id;
+  code.sharers = code.sharers.trim().split(" ").filter(x => guild.members.cache.get(x));
+  if (code.sharers && !code.sharers.includes(req.user.id)) code.sharers.unshift(req.user.id);
+  if (!code.modules) code.modules = "discord.js";
+  if (!code.mainCode || code.mainCode && (code.mainCode.trim().toLowerCase() === "yok" || code.mainCode.trim() === "-")) code.mainCode = "";
+  if (!code.command || code.command && (code.command.trim().toLowerCase() === "yok" || code.command.trim() === "-")) code.command = "";
   cooldown.get(req.user.id) ? cooldown.set(req.user.id, { count: cooldown.get(req.user.id).count += 1 }) : cooldown.set(req.user.id, { count: 1 });
   if (await cooldown.get(req.user.id).count === 1) setTimeout(() => cooldown.delete(req.user.id), 1000*60*10);
   
@@ -263,21 +272,29 @@ app.post("/ban-affi", async (req, res) => {
   
   let newCodeData = new codeData({
     name: code.name,
+    id: code.id,
     sharers: code.sharers,
-   
+    desc: code.desc.trim(),
+    modules: code.modules.trim(),
+    mainCode: code.mainCode.trim(),
+    command: code.command.trim(),
     rank: code.rank,
     date: code.date
   }).save();
 const channel = guild.channels.cache.get(conf.codeLog);
   let color;
-
+  if (code.rank === "normal") color = "#bfe1ff";
+  else if (code.rank === "gold") color = "#F1C531";
+  else if (code.rank === "diamond") color = "#3998DB";
+  else if (code.rank === "ready") color = "#f80000";
+  else if (code.rank === "fromyou") color = ""
   const embed = new MessageEmbed()
   .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
   .setThumbnail(guild.iconURL({ dynamic: true }))
   .setTitle(`${code.rank} kategorisinde bir kod paylaşıldı!`)
   .setDescription(`
   • Kod adı: [${code.name}](https://${conf.domain}/${code.rank}/${id})
-  • Kod Açıklaması: ${code.sharers}
+  • Kod Açıklaması: ${code.desc}
   • Kodu paylaşan: ${member.toString()}
   `)
   .setColor(color)
@@ -285,6 +302,18 @@ const channel = guild.channels.cache.get(conf.codeLog);
   res.redirect(`/${code.rank}/${id}`);
 });
 
+app.get("/normal", async (req, res) => {
+  const codeData = require("./src/schemas/code");
+  const data = await codeData.find({ rank: "normal" }).sort({ date: -1 });
+  res.render("normal", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    data,
+    moment,
+    guild: client.guilds.cache.get(conf.guildID),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
+});
 
 
 //ban
