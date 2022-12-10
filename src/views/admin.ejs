@@ -1,14 +1,16 @@
 <html>
   <body>
-    <%- include('partials/_header'); -%>
-        	<div class="loader-wrapper">
+<%- include('partials/_header'); -%>
+	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
+
+  	<div class="loader-wrapper">
       	<span class="loader"><span class="loader-inner"></span></span>
   	</div>  
 
-          <%- include('partials/_loader'); -%>
 
     <div class="container" style="min-height: 78vh; text-align: center;">
       <div class="row row-cols-1 row-cols-md-2" style="margin-top: 100px;">
+        
       <h4>
         24 saat içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24).length %>
       </h4>
@@ -46,7 +48,16 @@
         document.getElementById("mode-btn").checked = true;
       }
     </script>
-        
+        	<script>
+  	// PRELOADER EFFECT
+    	$(window).on("load",function(){
+     	$(".loader-wrapper").fadeOut("slow");
+    	});
+  	</script>
+  	<script>
+  		// ANIMATE ON SCROLL
+  		AOS.init();
+	</script>
     <script src="/index.js"></script>
     <%- include('partials/_footer'); -%>
   </body>
