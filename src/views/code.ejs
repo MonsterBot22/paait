@@ -39,11 +39,11 @@
       <% } else { %>
       <h6><span style="color: red;">Dikkat:</span> Bu kodda hata bildirimiştir! Yetkililerimiz en kısa sürede ilgileneceklerdir.</h6>
       <% } %>
-      <a href="javascript:$('#likeForm').submit()" id="likeButton">
+    <!--  <a href="javascript:$('#likeForm').submit()" id="likeButton"> 
         <span id="like" style="color:#FF3C41; float:right" class="<%= data.likedUsers.includes(user.id) ? 'fas fa-heart' : 'far fa-heart' %>">
           <span id="likeText"><%= data.likedUsers ? data.likedUsers.length : 0 %></span>
         </span>
-      </a> 
+      </a> -->
       <% if (data.mainCode) { %>
       <h2 style="text-align: left;">Main Kodu: <a onclick="copy('mainIcon')"><i class="far fa-copy" id="mainIcon"></i></a></h2>
       <pre style="height: 40pc; overflow-y: scroll"><code class="language-js" id="mainCode"><%= data.mainCode %></code></pre>
