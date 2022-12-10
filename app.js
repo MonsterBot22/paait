@@ -209,59 +209,7 @@ app.post("/bug", async (req, res) => {
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
 //ban
-app.get("/ban/:userID", async (req, res) => {
-  res.render("banaff", {
-    user: req.user,
-    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
-    userID: req.params.userID
-  });
-});
 
-app.get("/ban", async (req, res) => {
-  res.render("banaff", {
-    user: req.user,
-    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
-  });
-});
-
-app.post("/ban", async (req, res) => {
-  const guild = client.guilds.cache.get(conf.guildID);
-  const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  const codeData = require("./src/schemas/code");
-  const userData = require("./src/schemas/user");
-
-  console.log(req.body)
-  const code = await codeData.findOne({ id: req.body.id });
-  if (!code) return error(res, 404, req.body.id+" ID'li bir kod bulunamadı!");
-  
-  if (!code.bug) {
-    code.bug = req.body.bug;
-    code.save();
-  } else return error(res, 208, "Bu kodda zaten bug bildirildi!")
-  
-  const channel = client.channels.cache.get(conf.bugLog);
-  const embed = new MessageEmbed()
-  .setAuthor(req.user.username, member.user.avatarURL({ dynamic: true }))
-  .setThumbnail(guild.iconURL({ dynamic: true }))
-  .setTitle("Bir bug bildirildi!")
-  .setDescription(`
-• Kod adı: [${code.name}](https://${conf.domain}/${code.rank}/${req.body.id})
-• Bug bildiren: ${guild.members.cache.get(req.user.id).toString()}
-• Bug: ${req.body.bug}
-  `)
-  .setColor("RED")
-  channel.send(embed);
-  res.redirect(`/${code.rank}/${req.body.id}`);
-});
-app.get("/bann", (req, res) =>
-  res.render("ban", {
-    user: req.user,
-    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
-  })
-);
 //ban
 
 app.get("/share", async (req, res) => {
