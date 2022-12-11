@@ -2,6 +2,7 @@ const { Client, MessageEmbed } = require("discord.js");
 const client = new Client();
 const express = require("express");
 const app = express();
+  const uptimeSchema = require("./schemas/uptime.js");
 
 const conf = require("./src/configs/config.json");
 const settings = require("./src/public/style.json");
