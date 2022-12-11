@@ -208,31 +208,24 @@ app.post("/bug", async (req, res) => {
   channel.send(embed);
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
+
+//Sonradan ekleme
 //ban
 
-
-
 app.get("/ban-affi-bilgi", (req, res) =>
-  res.render("ban-bilgi", {
+  );
+appres.render("ban-bilgi", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   })
-);
-
-
-
-
-
-
-app.get("/ban-affi", async (req, res) => {
+.get("/ban-affi", async (req, res) => {
   res.render("ban-başvur", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null,
   });
 });
-
 app.post("/ban-affi", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
@@ -252,10 +245,12 @@ app.post("/ban-affi", async (req, res) => {
   channel.send(embed);
   res.redirect(`https://psychopath-techonology.ml/`);
 });
-
-
-
 //ban
+
+
+//Oyunlar
+
+//Sonradan ekleme
 
 app.get("/share", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
