@@ -268,7 +268,15 @@ app.get("/cow", async (req, res) => {
   });
 
 });
+app.get("/bowling", async (req, res) => {
+ res.render("oyunlar/bowling.ejs", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    guild: client.guilds.cache.get(conf.guildID),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
 
+});
 //Oyunlar
 
 //Sonradan ekleme
