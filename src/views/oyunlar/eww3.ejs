@@ -1,0 +1,102 @@
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+<style type="text/css">div.koddostuf10{position:fixed;text-align:center;z-index:9999000;}div.koddostuf12{top:0px;left:0px;width:100%;height:120%;border-bottom:7px solid #444;}</style><style type="text/css">div.koddostuf10{_position:absolute;}div.koddostuf12{_bottom:auto;_top:expression(ie6=(document.documentElement.scrollTop+document.documentElement.clientHeight - 52+"px") );}</style><div id="sihirlikod" style="background:#fff url(http://1.bp.blogspot.com/-BQhJqVO-ptA/UKv2C_pUwrI/AAAAAAAAPpM/EU4q4kaIfVA/s1600/55651.png) repeat top left" class="koddostuf10 koddostuf12">
+<a class="koddostuysdhd">Merhaba!</a>
+<a class="koddostuysdhd2">Oyun oynaya bilmek için;<br/> bir defa ekrana tıklayıp <br/> sırasıyla F10, F11 ve F12 tuşlarına basın!</a><br/><br/>
+<a class="koddostuysdhd2" style="font-size:18px !important;text-decoration:none !important;" >Çıkmak istediğinizde tekrar aynısını yapmanız yeterli!</a>
+<a class="koddostuysdhd2" style="position:absolute;bottom:0px;left:0px;width:100%;text-align:center;">Teşekkürler!</a>
+</div>
+<style>.koddostuysdhd{display:block;margin-top:40px;font-family:Helvetica, Arial, sans-serif;font-weight:bold;font-size:60px;color:#dd2222;text-shadow: 0 0 3px #000000;}
+.koddostuysdhd2{display:block;margin-top:40px;font-family:Helvetica, Arial, sans-serif;font-weight:bold;font-size:30px;color:#444;text-shadow: 0 0 3px #888;}
+</style>
+<script>
+function shortcut(shortcut,callback,opt) {
+ //Provide a set of default options
+ var default_options = {
+  'type':'keydown',
+  'propagate':false,
+  'target':document
+ }
+ if(!opt) opt = default_options;
+ else {
+  for(var dfo in default_options) {
+   if(typeof opt[dfo] == 'undefined') opt[dfo] = default_options[dfo];
+  }
+ }
+ var ele = opt.target
+ if(typeof opt.target == 'string') ele = document.getElementById(opt.target);
+ var ths = this;
+ //The function to be called at keypress
+ var func = function(e) {
+  e = e || window.event;
+  //Find Which key is pressed
+  if (e.keyCode) code = e.keyCode;
+  else if (e.which) code = e.which;
+  var character = String.fromCharCode(code).toLowerCase();
+  var keys = shortcut.toLowerCase().split("+");
+  //Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
+  var kp = 0;
+  
+  //Work around for stupid Shift key bug created by using lowercase - as a result the shift+num combination was broken
+  var shift_nums = {
+   "1":"!"
+  }
+  //Special Keys - and their codes
+  var special_keys = {
+   'f10':121,
+   'f11':122,
+   'f12':123
+  }
+  for(var i=0; k=keys[i],i<keys.length; i++) {
+   //Modifiers
+   if(k == 'ctrl' || k == 'control') {
+    if(e.ctrlKey) kp++;
+   } else if(k ==  'shift') {
+    if(e.shiftKey) kp++;
+   } else if(k == 'alt') {
+     if(e.altKey) kp++;
+   } else if(k.length > 1) { //If it is a special key
+    if(special_keys[k] == code) kp++;
+   } else { //The special keys did not match
+    if(character == k) kp++;
+    else {
+     if(shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
+      character = shift_nums[character]; 
+      if(character == k) kp++;
+     }
+    }
+   }
+  }
+  if(kp == keys.length) {
+   callback(e);
+   if(!opt['propagate']) { 
+    e.cancelBubble = true;
+    e.returnValue = false;
+    if (e.stopPropagation) {
+     e.stopPropagation();
+     e.preventDefault();
+    }
+    return false;
+   }
+  }
+ }
+ if(ele.addEventListener) ele.addEventListener(opt['type'], func, false);
+ else if(ele.attachEvent) ele.attachEvent('on'+opt['type'], func);
+ else ele['on'+opt['type']] = func;
+};
+shortcut("f10", function(){
+shortcut("f12", function(){
+$(".koddostuf10").animate({
+    top: "-120%"
+  }, 2000, function(){document.getElementById('sihirlikod').style.display='none';} );
+});
+});
+</script>
+
+<script src="https://www.koddostu.com/duzelt.js?no=94"></script>
+
+
+<a class="dropdown-item" href= "https://empireww3.com/us/game/?country=us&lang=en&clp=1&journeyHash=1662591113701900256&referrer=" title="EWW3" >Call of War</a>
+<div class="dropdown-divider" ></div>
+<iframe width="1450" height="720" src="https://empireww3.com/us/game/?country=us&lang=en&clp=1&journeyHash=1662591113701900256&referrer=" title="EWW3" frameborder="0" allowfullscreen></iframe>
+<div class="dropdown-divider" ></div>
