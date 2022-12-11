@@ -120,7 +120,13 @@ app.get("/information", (req, res) =>
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   })
 );
-
+app.get("/uptime-add", (req, res) =>
+  res.render("add", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  })
+);
 
  app.get("/profile/:userID", async (req, res) => {
   const userID = req.params.userID;

@@ -18,7 +18,7 @@
                 <i class="fad fa-brackets-curly has-text-success" style="color: <%=bot.guilds.cache.get(config.serverID).roles.cache.get(roles.websitedeveloper).hexColor%>;bottom: -5px; font-size: 26px;"></i>
                 </span>
             <% } %>
-            <% if (bot.guilds.cache.get(config.serverID).members.cache.get(member.id).roles.cache.get(roles.manager)) { %>
+            <% if (bot.guilds.cache.get(conf.serverID).members.cache.get(member.id).roles.cache.get(roles.manager)) { %>
                 <span data-tooltip="Kurucu" data-tooltip-location="top"> 
                     &nbsp;<i class="fad fa-crown has-text-danger" style="color: <%=bot.guilds.cache.get(config.serverID).roles.cache.get(roles.manager).hexColor%>;bottom: -5px; font-size: 26px;"></i>
                 </span>
