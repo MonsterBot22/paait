@@ -211,15 +211,14 @@ app.post("/bug", async (req, res) => {
 
 //Sonradan ekleme
 //ban
-
 app.get("/ban-affi-bilgi", (req, res) =>
-  );
-appres.render("ban-bilgi", {
+  res.render("ban-bilgi", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   })
-.get("/ban-affi", async (req, res) => {
+);
+app.get("/ban-affi", async (req, res) => {
   res.render("ban-başvur", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
@@ -249,7 +248,13 @@ app.post("/ban-affi", async (req, res) => {
 
 
 //Oyunlar
-
+app.get("/psychogame-beta", (req, res) =>
+  res.render("/oyunlar/oyunlar.ejs", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  })
+);
 //Sonradan ekleme
 
 app.get("/share", async (req, res) => {
