@@ -259,12 +259,7 @@ app.get("/psychogame-beta", (req, res) =>
     reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
   })
 );
-
-
-
-
 app.get("/cow", async (req, res) => {
-  if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Oyun oynaya bilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
  res.render("oyunlar/cow.ejs", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
