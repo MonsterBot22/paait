@@ -2,6 +2,8 @@ const { Client, MessageEmbed } = require("discord.js");
 const client = new Client();
 const express = require("express");
 const app = express();
+const oyun = express();
+
 const conf = require("./src/configs/config.json");
 const settings = require("./src/public/style.json");
 const bodyParser = require("body-parser");
@@ -28,6 +30,17 @@ app.use(express.static(__dirname + "/src/public"));
 app.use(session({ secret: "secret-session-thing", resave: false, saveUninitialized: false, }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+oyun.engine(".ejs", ejs.__express);
+oyun.set("view engine", "ejs");
+oyun.use(bodyParser.json());
+oyun.use(bodyParser.urlencoded({ limit: "50mb", extended: false, }));
+oyun.use(cookieParser());
+oyun.set("views/oyunlar", path.join(__dirname, "src/views/oyunlar"));
+oyun.use(express.static(__dirname + "/src/public"));
+oyun.use(session({ secret: "secret-session-thing", resave: false, saveUninitialized: false, }));
+oyun.use(passport.initialize());
+oyun.use(passport.session());
 // </> Middlewares </>
 
 // </> Authorization </>
@@ -248,7 +261,7 @@ app.post("/ban-affi", async (req, res) => {
 
 
 //Oyunlar
-app.get("/psychogame-beta", (req, res) =>
+o.get("/psychogame-beta", (req, res) =>
   res.render("/oyunlar/oyunlar.ejs", {
     user: req.user,
     icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
