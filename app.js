@@ -245,7 +245,7 @@ app.post("/ban-affi", async (req, res) => {
   .setThumbnail(guild.iconURL({ dynamic: true }))
   .setTitle("Bir unban isteği bildirildi!")
   .setDescription(`
-• Unban isteyen: ${req.body.bug}
+• Unban isteyen: <@!${req.body.bug2}>
 • Banlanma sebebi ve notu: ${req.body.bug}
   `)
   .setColor("RED")
