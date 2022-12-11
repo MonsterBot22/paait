@@ -225,7 +225,7 @@ app.get("/ban-affi-bilgi", (req, res) =>
 
 
 
-app.get("/bug", async (req, res) => {
+app.get("/ban-affi", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   res.render("bug", {
     user: req.user,
