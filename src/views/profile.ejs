@@ -40,34 +40,7 @@
       <br><br>
 
         </div>
-        <div class="is-4 mt-1 column">
-            <% if(pdata) {%>
-                <% if(pdata.twitter) {%>
-                    <a href="/redirect?type=website&url=https://twitter.com/<%= pdata.twitter %>" class="is-flex mt-1">
-                      <div style="background: #2077aa" class="box-2-p"><i class="fab fa-twitter is-size-6 mt-1"></i></div>
-                      <p style="background: #019ffa" class="box-2">Twitter</p>
-                    </a>
-                <% } %>
-                <% if(pdata.instagram) {%>
-                <a href="/redirect?type=website&url=https://instagram.com/<%= pdata.instagram %>" class="is-flex mt-1">
-                    <div style="background: #923453" class="box-2-p"><i class="fab fa-instagram is-size-6 mt-1"></i></div>
-                    <p style="background: #E1306C" class="box-2">Instagram</p>
-                </a>
-                 <% } %>
-                  <% if(pdata.website) {%>
-                  <a href="/redirect?type=website&url=<%= pdata.website %>" class="is-flex mt-1">
-                    <div style="background: rgb(33, 167, 111);" class="box-2-p"><i class="fa fa-globe is-size-6 mt-1"></i></div>
-                    <p style="background: rgb(8, 187, 112);"class="box-2">Website</p>
-                  </a>
-                  <% } %>
-                  <% if(pdata.github) {%>
-                  <a href="/redirect?type=website&url=https://github.com/<%= pdata.github %>" class="is-flex mt-1">
-                    <div style="background: rgb(0, 0, 0);" class="box-2-p"><i class="fab fa-github is-size-6 mt-1"></i></div>
-                    <p style="background: rgb(8, 8, 8);" class="box-2">Github</p>
-                  </a>
-                  <% } %>
-            <% } %>
-        </div>
+
       <% if (data.codes) { %>
       <h3>
         Paylaştığı kodlar:<br>

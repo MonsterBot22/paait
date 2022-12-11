@@ -667,7 +667,6 @@ app.post("/edit", async (req, res) => {
 
   
  
-
 app.post("/like", async (req, res) => {
   if (!req.user) return;
   const codeData = require("./src/schemas/code");
@@ -694,7 +693,7 @@ app.post("/like", async (req, res) => {
     code.save();
     code.sharers.map(async x => {
       const sharerData = await userData.findOne({ userID: x });
-      sharerData.getLikeCount -= +1;
+      sharerData.getLikeCount -= 1;
       sharerData.save();
     });
   }
