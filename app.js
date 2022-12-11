@@ -240,7 +240,7 @@ app.post("/ban-affi", async (req, res) => {
   console.log(req.body)
   
   
-  const channel = client.channels.cache.get(conf.bugLog);
+  const channel = client.channels.cache.get(conf.banaff);
   const embed = new MessageEmbed()
   .setThumbnail(guild.iconURL({ dynamic: true }))
   .setTitle("Bir unban isteği bildirildi!")
@@ -560,7 +560,7 @@ const channel = guild.channels.cache.get(conf.codeLog);
   }
   
   code.deleteOne();
-  res.redirect("/");
+  res.redirect("https://psychopath-techonology.ml/");
 
 });
 
