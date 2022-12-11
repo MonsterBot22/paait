@@ -214,6 +214,8 @@ app.post("/bug", async (req, res) => {
 });
 
 //Sonradan ekleme
+
+    
 //ban
 app.get("/ban-affi-bilgi", (req, res) =>
   res.render("ban-bilgi", {
