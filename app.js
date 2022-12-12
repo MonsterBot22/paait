@@ -291,6 +291,52 @@ app.get("/eww3", async (req, res) => {
 });
 //Oyunlar
 
+
+
+ const uptimedata = require("./models/uptime.js");
+    app.get("/uptime/add",  async (req,res) => {
+      res.render(res, req, "add", {req, });
+    })
+    app.post("/uptime/add", async (req,res) => {
+      const rBody = req.body;
+      if(!rBody['link']) { 
+          res.redirect('?error=true&message=Write a any link.')
+      } else {
+          if(!rBody['link'].match('https')) return res.redirect('?error=true&message=You must enter a valid link.')
+          const id = randomStr(8);
+          const dde = await uptimedata.findOne({link: rBody['link']});
+          const dd = await uptimedata.find({userID: req.user.id});
+          if(dd.length > 9) res.redirect('?error=true&message=Your uptime limit has reached.')
+  
+          if(dde) return res.redirect('?error=true&message=This link already exists in the system.')
+          client.users.fetch(req.user.id).then(a => {
+          client.channels.cache.get(conf.bugLog).send(new MessageEmbed()
+          .setAuthor(a.username, a.avatarURL({dynamic: true}))
+          .setDescription("Uptime SistemimizeYeni bağlantı eklendi.Sizde projenizi 7/24 aktif etmek istiyorsanız https://psycho-uptime.cf/ hizmetinizde!")
+          .setThumbnail(client.user.avatarURL)
+          .setColor("GREEN")
+          .addField("Kullanıcı;", `${a.tag} \`(${a.id})\``, true)
+          .addField("Uptime Code;", id, true)
+          .addField("Uptime Limit;", `${dd.length+1}/10`, true)
+          )
+          new uptimedata({server: conf.serverID, userName: a.username, userID: req.user.id, link: rBody['link'], code: id}).save();
+        })
+        res.redirect('?success=true&message=Bağlantınız uptime sistemine başarıyla eklendi.');
+      }
+    })
+    app.get("/uptime/links",  async (req,res) => {
+      let uptimes = await uptimedata.find({ userID: req.user.id })
+      res.render(res, req, "error", {req,  uptimes});
+     })
+     app.get("/uptime/:code/delete",  async (req,res) => {
+      const dde = await uptimedata.findOne({code: req.params.code});
+      if(!dde) return res.redirect('/uptime/links?error=true&message=There is no such site in the system.')
+      uptimedata.findOne({ 'code': req.params.code }, async function (err, docs) { 
+              if(docs.userID != req.user.id) return res.redirect('/uptime/links?error=true&message=The link you tried to delete does not belong to you.');
+              res.redirect('/uptime/links?success=true&message=The link has been successfully deleted from the system.');
+              await uptimedata.deleteOne({ code: req.params.code });
+       })
+     })
 //Sonradan ekleme
 
 app.get("/share", async (req, res) => {
