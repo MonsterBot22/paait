@@ -293,9 +293,9 @@ app.get("/eww3", async (req, res) => {
 
 
 
- const uptimedata = require("./models/uptime.js");
+ const uptimedata = require("./src/schemas/uptime.js");
     app.get("/uptime/add",  async (req,res) => {
-      res.render(res, req, "add", {req, });
+      res.render( "add", {req, });
     })
     app.post("/uptime/add", async (req,res) => {
       const rBody = req.body;
@@ -326,7 +326,7 @@ app.get("/eww3", async (req, res) => {
     })
     app.get("/uptime/links",  async (req,res) => {
       let uptimes = await uptimedata.find({ userID: req.user.id })
-      res.render(res, req, "error", {req,  uptimes});
+      res.render(res, req, "lnk", {req,  uptimes});
      })
      app.get("/uptime/:code/delete",  async (req,res) => {
       const dde = await uptimedata.findOne({code: req.params.code});
