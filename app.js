@@ -214,38 +214,7 @@ app.post("/bug", async (req, res) => {
 });
 
 //Sonradan ekleme
- const uptimedata = require("./src/schemas/uptime.js");
-    app.get("/uptime/add",  async (req,res) => {
-      res.render(res, req, "add", {req});
-    })
-    app.post("/uptime/add",  async (req,res) => {
-      const rBody = req.body;
-      if(!rBody['link']) { 
-          res.redirect('?error=true&message=Write a any link.')
-      } else {
-          if(!rBody['link'].match('https')) return res.redirect('?error=true&message=You must enter a valid link.')
-  const iwd = randomStr(8);
-          const dde = await uptimedata.findOne({link: rBody['link']});
-          const dd = await uptimedata.find({userID: req.user.id});
-          if(dd.length > 9) res.redirect('?error=true&message=Your uptime limit has reached.')
-  
-          if(dde) return res.redirect('?error=true&message=This link already exists in the system.')
-          client.users.fetch(req.user.id).then(a => {
-          client.channels.cache.get(conf.bugLog).send(new MessageEmbed()
-          .setAuthor(a.username, a.avatarURL({dynamic: true}))
-          .setDescription("Uptime SistemimizeYeni bağlantı eklendi.Sizde projenizi 7/24 aktif etmek istiyorsanız https://psycho-uptime.cf/ hizmetinizde!")
-          .setThumbnail(client.user.avatarURL)
-          .setColor("GREEN")
-          .addField("Kullanıcı;", `${a.tag} \`(${a.id})\``, true)
-          .addField("Uptime Code;", iwd, true)
-          .addField("Uptime Limit;", `${dd.length+1}/10`, true)
-          )
-          new uptimedata({server: conf.serverID, userName: a.username, userID: req.user.id, link: rBody['link'], code: iwd
-}).save();
-        })
-        res.redirect('?success=true&message=Bağlantınız uptime sistemine başarıyla eklendi.');
-      }
-    })
+
     
 //ban
 app.get("/ban-affi-bilgi", (req, res) =>
