@@ -27,6 +27,8 @@
             <th scope="col">Açıklama</th>
             <th scope="col">Paylaşan</th>
             <th scope="col">Sil</th>
+                        <th scope="col">Sayfa</th>
+
           </tr>
         </thead>
         <tbody>
@@ -37,12 +39,18 @@
             <td><%= x.desc %></td>
             <td><%= x.sharers[0] %></td>
             <td><a href="/delete/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-danger">Kodu sil</a></td>
+                        <td><a href="/<%= x.rank %>/<%= x.id %>" class="fas fa-eye">Koda bak</a></td>
+
           </tr>
           <% }); %>
         </tbody>
       </table>
     </div>
 
+        
+        
+        
+        
     <script>
       if (localStorage.getItem("mode") != "") {
         document.body.classList.add(localStorage.getItem("mode"));
