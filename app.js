@@ -568,7 +568,7 @@ app.get("/delete/:rank/:id", async (req, res) => {
   const userData = require("./src/schemas/user");
   const code = await codeData.findOne({ rank: req.params.rank, id: req.params.id });
   if (!code) return error(res, 404, req.params.id+" ID'li bir kod bulunmuyor!");
-    if (!member.hasPermission(8) || !code.sharers.includes(req.user.id)) return error(res, 401, "Bu sayfaya girmek için yetkin bulunmuyor!");
+  if (!member.hasPermission(8) || !code.sharers.includes(req.user.id)) return error(res, 401, "Bu sayfaya girmek için yetkin bulunmuyor!");
 
   
 const channel = guild.channels.cache.get(conf.codeLog);
