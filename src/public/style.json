@@ -1,7 +1,0 @@
- {
-  "mongoURL": "mongodb+srv://sitessbotu:akachimakachi12@cluster0.o7mzd5x.mongodb.net/?retryWrites=true&w=majority",
- "clientID": "987372212845674536",
-  "token": "OTg3MzcyMjEyODQ1Njc0NTM2.GOvNuV.3g_RmWinpNL00nqk6sN3a-_rW1KTE2bWiC7gDk",
-  "secret": "PzDnEaYe9fleT5MYs1X3Sjz45IrSYMiH",
-  "callbackURL": "https://psychopath-techonology.ml/callback"
- } 
