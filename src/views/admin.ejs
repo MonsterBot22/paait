@@ -7,7 +7,7 @@
       	<span class="loader"><span class="loader-inner"></span></span>
   	</div>  
 
-<script type="text/javascript" src="https://webkodu.ozgurlukicin.com/kod-kaynak/wk-kar-efekt.js"></script>
+
 
     <div class="container" style="min-height: 78vh; text-align: center;">
       <div class="row row-cols-1 row-cols-md-2" style="margin-top: 100px;">
@@ -17,6 +17,12 @@
       </h4>
       <h4>
         7 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 7).length %>
+      </h4>
+        <h4>
+        30 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 30).length %>
+      </h4>
+          <h4>
+        365 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 365).length %>
       </h4>
       </div>
       <table class="table table-hover table-dark" style="margin-top: 40px;">
@@ -39,7 +45,7 @@
             <td><%= x.desc %></td>
             <td><%= x.sharers[0] %></td>
             <td><a href="/delete/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-danger">Kodu sil</a></td>
-                        <td><a href="/<%= x.rank %>/<%= x.id %>" class="fas fa-eye">Koda bak</a></td>
+                        <td><a href="/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-info">Koda bak</a></td>
 
           </tr>
           <% }); %>

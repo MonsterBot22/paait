@@ -16,8 +16,11 @@
   		// ANIMATE ON SCROLL
   		AOS.init();
 	</script>
+      
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.css">
     <div class="container" style="min-height: 100vh; text-align: center;">
+      
+
       <h2 style="margin-top: 100px;"><%= data.name %></h2>
       <br>
       <h5 style="color: gray;"><%= data.desc %></h5>
@@ -33,6 +36,14 @@
         </a>
         <% }); %>
       </h5>
+          
+          
+          
+               <button style="color:#FF3C41; float:left; margin-left: 20px; margin-high: 20px; cursor: pointer;" class="fas fa-back" onclick="window.history.back()">Geri Dön</button>
+ 
+          
+          
+          
       <br>
       <% if (!data.bug) { %>
       <a href="/bug/<%= data.id %>"><span class="fas fa-exclamation-triangle" style="color:#FF3C41; float:right; margin-left: 20px; cursor: pointer;"></span></a>
