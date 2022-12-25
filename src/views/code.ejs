@@ -1,26 +1,8 @@
 <html>
   <body>
     <%- include('partials/_header'); -%>
-            	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
-
-  	<div class="loader-wrapper">
-      	<span class="loader"><span class="loader-inner"></span></span>
-  	</div>  
-              	<script>
-  	// PRELOADER EFFECT
-    	$(window).on("load",function(){
-     	$(".loader-wrapper").fadeOut("slow");
-    	});
-  	</script>
-  	<script>
-  		// ANIMATE ON SCROLL
-  		AOS.init();
-	</script>
-      
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.css">
     <div class="container" style="min-height: 100vh; text-align: center;">
-      
-
       <h2 style="margin-top: 100px;"><%= data.name %></h2>
       <br>
       <h5 style="color: gray;"><%= data.desc %></h5>
@@ -36,28 +18,20 @@
         </a>
         <% }); %>
       </h5>
-          
-          
-          
-               <button style="color:#FF3C41; float:left; margin-left: 20px; margin-high: 20px; cursor: pointer;" class="fas fa-back" onclick="window.history.back()">Geri Dön</button>
- 
-          
-          
-          
       <br>
       <% if (!data.bug) { %>
       <a href="/bug/<%= data.id %>"><span class="fas fa-exclamation-triangle" style="color:#FF3C41; float:right; margin-left: 20px; cursor: pointer;"></span></a>
       <% } else { %>
       <h6><span style="color: red;">Dikkat:</span> Bu kodda hata bildirimiştir! Yetkililerimiz en kısa sürede ilgileneceklerdir.</h6>
       <% } %>
-     <!-- <a href="javascript:$('#likeForm').submit()" id="likeButton">
+      <a href="javascript:$('#likeForm').submit()" id="likeButton"> Beğen
         <span id="like" style="color:#FF3C41; float:right" class="<%= data.likedUsers.includes(user.id) ? 'fas fa-heart' : 'far fa-heart' %>">
           <span id="likeText"><%= data.likedUsers ? data.likedUsers.length : 0 %></span>
         </span>
-      </a> -->
+      </a> 
       <% if (data.mainCode) { %>
-      <h2 style="text-align: left;">Main Kodu: <a onclick="copy('mainIcon')"><i class="far fa-copy" id="mainIcon"></i></a></h2>
-      <pre style="height: 40pc; overflow-y: scroll"><code class="language-js" id="mainCode"><%= data.mainCode %></code></pre>
+      <h2 style="text-align: left;">Main Kodu: <a onclick="kopyala('kaynak')"><i class="far fa-copy" id="mainIcon"></i></a></h2>
+      <pre style="height: 40pc; overflow-y: scroll"><code class="language-js" id="kaynak"><%= data.mainCode %></code></pre>
       <br>
       <% } %>
       <% if (data.command) { %>
@@ -69,10 +43,10 @@
       <br><br>
       <a href="/delete/<%= data.rank %>/<%= data.id %>" class="btn btn-outline-danger" style="width: 100%;">Kodu sil</a>
       <% } %>
-     <!-- <form id="likeForm" action="/like" method="POST">
+      <form id="likeForm" action="/like" method="POST">
         <input name="id" id="likeName" type="hidden" value="<%= data.id %>">
       </form>
-    </div> -->
+    </div>
 
     <script>
       if (localStorage.getItem("mode") != "") {
@@ -92,6 +66,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
     <script src="/index.js"></script>
+
+   <script>
+   function kopyala(elemanID){
+  var cop = document.createElement("div");
+  cop.setAttribute("contentEditable", true);
+  cop.innerHTML = document.getElementById(elemanID).innerHTML;
+  cop.setAttribute("onfocus", "document.execCommand('selectAll',false,null)"); 
+  document.body.appendChild(cop);
+  cop.focus();
+  document.execCommand("copy");
+  document.body.removeChild(cop);
+}
+   </script>
     <%- include('partials/_footer'); -%>
   </body>
 </html>

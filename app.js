@@ -670,7 +670,6 @@ app.post("/edit", async (req, res) => {
 
 
   
- 
 app.post("/like", async (req, res) => {
   if (!req.user) return;
   const codeData = require("./src/schemas/code");
@@ -702,6 +701,7 @@ app.post("/like", async (req, res) => {
     });
   }
 });
+
 
 
 
