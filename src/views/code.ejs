@@ -3,6 +3,10 @@
     <%- include('partials/_header'); -%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.css">
     <div class="container" style="min-height: 100vh; text-align: center;">
+             <button style="margin-right: 100000px;margin-top: 100px;" class="btn btn-primary" onclick="window.history.back()">Geri Dön</button>
+
+      
+      
       <h2 style="margin-top: 100px;"><%= data.name %></h2>
       <br>
       <h5 style="color: gray;"><%= data.desc %></h5>
@@ -10,7 +14,6 @@
       <h5>Modüller: <kbd><%= data.modules %></kbd></h5>
       <br><br>
         
-       <button style="color:#FF3C41; float:left; margin-left: 20px;   cursor: pointer;" class="fas fa-back" onclick="window.history.back()">Geri Dön</button>
  
         
       <h5>
