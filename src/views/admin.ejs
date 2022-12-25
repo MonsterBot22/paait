@@ -43,7 +43,7 @@
             <th scope="row"><%= i+1 %></th>
             <td><%= x.name %></td>
             <td><%= x.desc %></td>
-            <td><%= x.sharers[0] %></td>
+            <td><a href="/profile/<%= x.sharers[0] %>" class="btn btn-outline-primary">Profil (<%= x.sharers[0] %>) </a></td>
             <td><a href="/delete/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-danger">Kodu sil</a></td>
                         <td><a href="/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-info">Koda bak</a></td>
 

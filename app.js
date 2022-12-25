@@ -571,7 +571,6 @@ app.get("/delete/:rank/:id", async (req, res) => {
   const code = await codeData.findOne({ rank: req.params.rank, id: req.params.id });
   if (!code) return error(res, 404, req.params.id+" ID'li bir kod bulunmuyor!");
   if (member  && !member.roles.cache.has(conf.ownerRole) && !member.roles.cache.has(conf.adminRole) )  return error(res, 501, "Bu sayfaya girmek için yetkin bulunmuyor!");
-  res.redirect("https://psychopath-techonology.ml/");
 
   
 const channel = guild.channels.cache.get(conf.codeLog);
