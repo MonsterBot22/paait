@@ -31,7 +31,7 @@
       <% } else { %>
       <h6><span style="color: red;">Dikkat:</span> Bu kodda hata bildirimiştir! Yetkililerimiz en kısa sürede ilgileneceklerdir.</h6>
       <% } %>
-      <a href="javascript:$('#likeForm').submit()" id="likeButton"> Beğen
+      <a href="javascript:$('#likeForm').submit()" id="likeButton">
         <span id="like" style="color:#FF3C41; float:right" class="<%= data.likedUsers.includes(user.id) ? 'fas fa-heart' : 'far fa-heart' %>">
           <span id="likeText"><%= data.likedUsers ? data.likedUsers.length : 0 %></span>
         </span>
