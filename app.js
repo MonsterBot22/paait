@@ -213,17 +213,7 @@ app.post("/bug", async (req, res) => {
   res.redirect(`/${code.rank}/${req.body.id}`);
 });
 
-app.get("/sikayet/:userID", async (req, res) => {
-  if(!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Bu sayfaya girmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
-  res.render("sikayet", {
-    user: req.user,
-    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
-    reqMember: req.user ? client.guilds.cacge.get(conf.guildID).members.cache.get(req.user.id) : null,
-    
-  });
-});
 
-app.post
 
 
 //Sonradan ekleme
