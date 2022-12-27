@@ -12,102 +12,19 @@
     <div class="container" style="min-height: 78vh; text-align: center;">
       <div class="row row-cols-1 row-cols-md-2" style="margin-top: 100px;">
         
-      
-      
-        
-          
+      <h4>
+        24 saat içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24).length %>
+      </h4>
+      <h4>
+        7 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 7).length %>
+      </h4>
+        <h4>
+        30 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 30).length %>
+      </h4>
+          <h4>
+        365 gün içinde paylaşılan kod sayısı:<br><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 365).length %>
+      </h4>
       </div>
-            <div class="row">
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <style>
-                    .new {
-                      color: gray;
-                    }
-                  </style>
-                  <h3 class="danger"><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24).length %></h3>
-                  <span class="new">24 saat içinde paylaşılan kod sayısı</span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-rocket danger primary font-large-2 mr-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-          <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <style>
-                    .new {
-                      color: gray;
-                    }
-                  </style>
-                  <h3 class="danger"><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 7).length %></h3>
-                  <span class="new">7 gün içinde paylaşılan kod sayısı</span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-rocket danger primary font-large-2 mr-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-          <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <style>
-                    .new {
-                      color: gray;
-                    }
-                  </style>
-                  <h3 class="danger"><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 30).length %></h3>
-                  <span class="new">30 gün içinde paylaşılan kod sayısı</span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-rocket danger primary font-large-2 mr-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-           <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <style>
-                    .new {
-                      color: gray;
-                    }
-                  </style>
-                  <h3 class="danger"><%= code.filter(x => (Date.now() - x.date) <= 1000 * 60 * 60 * 24 * 365).length %></h3>
-                  <span class="new">365 gün içinde paylaşılan kod sayısı</span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-rocket danger primary font-large-2 mr-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-              
-              
       <table class="table table-hover table-dark" style="margin-top: 40px;">
         <thead>
           <tr>
@@ -116,8 +33,7 @@
             <th scope="col">Açıklama</th>
             <th scope="col">Paylaşan</th>
             <th scope="col">Sil</th>
-            <th scope="col">Sayfa</th>
-            
+                        <th scope="col">Sayfa</th>
 
           </tr>
         </thead>
@@ -129,9 +45,7 @@
             <td><%= x.desc %></td>
             <td><a href="/profile/<%= x.sharers[0] %>" class="btn btn-outline-primary">Profil (<%= x.sharers[0] %>) </a></td>
             <td><a href="/delete/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-danger">Kodu sil</a></td>
-            <td><a href="/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-info">Koda bak</a></td>
-  
-            
+                        <td><a href="/<%= x.rank %>/<%= x.id %>" class="btn btn-outline-info">Koda bak</a></td>
 
           </tr>
           <% }); %>
