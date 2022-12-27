@@ -298,6 +298,22 @@ app.get("/eww3", async (req, res) => {
 
 //Sonradan ekleme
 
+app.get("/haberpaylas", async (req, res) => {
+  if(!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error (res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
+  res.render("haberPaylas", {
+    user: req.user,
+    icon: client.guilds.cache.get(conf.guildID).iconURL({ dynamic: true }),
+    isOwner: client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id).roles.cache.has(conf.ownerRole),
+    reqMember: req.user ? client.guilds.cache.get(conf.guildID).members.cache.get(req.user.id) : null
+  });
+});
+app.post("/haberpaylasing", async (req, res) => {
+  const guild = client.guilds.cache.get(conf.guildID);
+  const member = req.user ? guild.members.cache.get(req.user.id) : null;
+  if(!req.user || )
+  
+})
+
 app.get("/share", async (req, res) => {
   if (!req.user || !client.guilds.cache.get(conf.guildID).members.cache.has(req.user.id)) return error(res, 138, "Kod paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
   res.render("shareCode", {
