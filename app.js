@@ -310,7 +310,18 @@ app.get("/haberpaylas", async (req, res) => {
 app.post("/haberpaylasing", async (req, res) => {
   const guild = client.guilds.cache.get(conf.guildID);
   const member = req.user ? guild.members.cache.get(req.user.id) : null;
-  if(!req.user || )
+  if(!req.user || !member) return error(res, 138, "Haber paylaşabilmek için Discord sunucumuza katılmanız ve siteye giriş yapmanız gerekmektedir.");
+  const codeData = require("./src/schemas/code");
+  const userData = require("./src/schemas/user");
+  if (member && conf.notOwner.some((x) => member.roles.cache.has(x) || member.user.id === x)) return error(res, 502, "Kod paylaşma iznin bulunmuyor!");
+  const id = randomStr(4);
+  
+  let haber = req.body;
+  haber.id = id;
+  haber.date = Date.now();
+  if(!haber.Sharers) haber.sharers = req.user.id;
+  haber.sharers = haber.sharers.trim().split(" ").filter(x => guild.members.cache.get(x));
+  
   
 })
 
