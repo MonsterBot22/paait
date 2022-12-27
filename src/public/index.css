@@ -33,6 +33,11 @@ body.light {
   opacity: 0.3;
 }
 
+
+.card {
+  background-color: purple;
+}
+
 .scroll-down::before,
 .scroll-down::after {
   content: "";
