@@ -19,7 +19,12 @@
     <div class="container" style="min-height: 100vh; text-align: center;">
       <h2 class="text-center" style="margin-top: 100px;">
         <img src="<%= member.user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; width: 100px; height: 100px;">
-                 <% if(cacheServer) {%>
+                
+                   <div class="user-badges">
+            <% 
+            let cacheServer = .guilds.cache.get(config.server.id).members.cache.get(member.id) 
+            %>
+        <% if(cacheServer) {%>
             <%
             let adminRole = cacheServer.roles.cache.get(roles.administrator);
             let moderatorRole = cacheServer.roles.cache.get(roles.moderator);
