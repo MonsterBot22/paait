@@ -1,43 +1,13 @@
 <html>
   <body>
     <%- include('partials/_header'); -%>
-            	<link rel="stylesheet" href="https://purple-silver-helicona.glitch.me/style.css">
-
-  	<div class="loader-wrapper">
-      	<span class="loader"><span class="loader-inner"></span></span>
-  	</div>  
-              	<script>
-  	// PRELOADER EFFECT
-    	$(window).on("load",function(){
-     	$(".loader-wrapper").fadeOut("slow");
-    	});
-  	</script>
-  	<script>
-  		// ANIMATE ON SCROLL
-  		AOS.init();
-	</script>
+    
     <div class="container" style="min-height: 100vh; text-align: center;">
       <h2 class="text-center" style="margin-top: 100px;">
         <img src="<%= member.user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; width: 100px; height: 100px;">
-                
-                   < class="user-
-            <% 
-            let cacheServer = .guilds.cache.get(config.server.id).members.cache.get(member.id) 
-            %>
-        <% if(cacheServer) {%>
-            <%
-            let adminRole = cacheServer.roles.cache.get(roles.administrator);
-            let moderatorRole = cacheServer.roles.cache.get(roles.moderator);
-            let sponsorRole = cacheServer.roles.cache.get(roles.profile.sponsor);
-            let certifiedDeveloper = cacheServer.roles.cache.get(roles.botlist.certified_developer);
-            let partnerRoleCache = cacheServer.roles.cache.get(roles.profile.partnerRole);
-            let supporterRole = cacheServer.roles.cache.get(roles.profile.supporter);
-            %>
-            <% if (member.id === "714451348212678658") { %>
-            <span data-tooltip="Website Developer" data-tooltip-location="top"> <i class="fad fa-brackets-curly has-text-success" style="color: GREEN;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% if (adminRole) { %
-            <span data-tooltip="<%= --="top"> <i class="fad fa-crown has-text-danger" style="color: <%=adminRole.hexColor%>;bottom: -5px; font-size: 26px;"</i></an         <%     h2>
+        <br><br>
+        <%= member.user.tag %>
+      </h2>
       <h5 style="color: <%= color %>">
         <%= auth %>
       </h5>
@@ -46,23 +16,19 @@
       <h4>
         Paylaştığı kod sayısı:<br><%= data.codes ? data.codes.length : 0 %>
       </h4>
-    <h4>
+      <h4>
         Aldığı beğeni sayısı:<br><%= data.getLikeCount ? data.getLikeCount : 0 %>
       </h4>
       <h4>
         Beğendiği kod sayısı:<br><%= code ? code.filter(x => x.likedUsers.includes(member.user.id)).length : 0 %>
-      </h4> 
-        
+      </h4>
       </div>
       <br><br>
-
-        </div>
-
       <% if (data.codes) { %>
       <h3>
         Paylaştığı kodlar:<br>
         <% data.codes.sort((a, b) => b.date - a.date).map(x => { %>
-        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %> |</a>
+        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %></a>
         <% }); %>
       </h3>
       <% } %>
@@ -81,14 +47,7 @@
         document.body.classList.add(localStorage.getItem("mode"));
         document.getElementById("mode-btn").checked = true;
       }
-      
-      
-      
-      
     </script>
-          
-          
-
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/index.js"></script>
