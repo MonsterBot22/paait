@@ -3,6 +3,7 @@ const client = new Client();
 const express = require("express");
 const app = express();
   const uptimeSchema = require("./src/schemas/uptime.js");
+  const roles = require("./roles.json");
 
 const conf = require("./src/configs/config.json");
 const settings = require("./src/public/style.json");
