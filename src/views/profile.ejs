@@ -5,6 +5,25 @@
     <div class="container" style="min-height: 100vh; text-align: center;">
       <h2 class="text-center" style="margin-top: 100px;">
         <img src="<%= member.user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; width: 100px; height: 100px;">
+
+        
+        
+        
+        
+        
+        
+        <% if(bot.guilds.cache.get(config.serverID).members.cache.get(member.id)) {%>
+            <% if (bot.guilds.cache.get(config.serverID).members.cache.get(member.id).roles.cache.get(roles.websitedeveloper)) { %>
+                <span data-tooltip="Website Developer" data-tooltip-location="top"> 
+                <i class="fad fa-brackets-curly has-text-success" style="color: <%=bot.guilds.cache.get(config.serverID).roles.cache.get(roles.websitedeveloper).hexColor%>;bottom: -5px; font-size: 26px;"></i>
+                </span>
+            <% } %>
+        
+        
+        
+        
+        
+        
         <br><br>
         <%= member.user.tag %>
       </h2>
