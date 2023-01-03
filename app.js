@@ -7,6 +7,8 @@ const app = express();
 
 const conf = require("./src/configs/config.json");
 const settings = require("./src/public/style.json");
+const setting = require("./.env");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const ejs = require("ejs");
@@ -61,7 +63,7 @@ app.get("/logout", (req, res) => {
 // </> Authorization </>
 
 // </> DB Connection </>
-mongoose.connect(process.env.mongoURL, {
+mongoose.connect(settings.mongoURL, {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useFindAndModify: false,
