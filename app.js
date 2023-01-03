@@ -61,7 +61,7 @@ app.get("/logout", (req, res) => {
 // </> Authorization </>
 
 // </> DB Connection </>
-mongoose.connect(settings.mongoURL, {
+mongoose.connect(process.env.mongoURL, {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useFindAndModify: false,
