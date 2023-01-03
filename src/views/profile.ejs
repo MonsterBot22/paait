@@ -1,6 +1,6 @@
 <html>
   <body>
-    <%- include('partials/_header'); -%>
+    <%- include('partials/_header'); -%> {bot, user, path})
     
     <div class="container" style="min-height: 100vh; text-align: center;">
       <h2 class="text-center" style="margin-top: 100px;">
@@ -11,56 +11,15 @@
         
         
         
- <div class="column is-6">
 
-           <div class="user-badges">
-            <% 
-            let cacheServer = guilds.cache.get(conf.guildID).members.cache.get(member.id) 
-            %>
-          <% if(cacheServer) {%>
-            <%
-            let adminRole = cacheServer.roles.cache.get(roles.administrator);
-            let moderatorRole = cacheServer.roles.cache.get(roles.moderator);
-            let sponsorRole = cacheServer.roles.cache.get(roles.profile.sponsor);
-            let certifiedDeveloper = cacheServer.roles.cache.get(roles.botlist.certified_developer);
-            let partnerRoleCache = cacheServer.roles.cache.get(roles.profile.partnerRole);
-            let supporterRole = cacheServer.roles.cache.get(roles.profile.supporter);
-            %>
-            <% if (member.id === "840158550495723530") { %>
-            <span data-tooltip="Website Developer" data-tooltip-location="top"> <i class="fad fa-brackets-curly has-text-success" style="color: GREEN;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% if (adminRole) { %>
-            <span data-tooltip="<%=adminRole.name%>" data-tooltip-location="top"> <i class="fad fa-crown has-text-danger" style="color: <%=adminRole.hexColor%>;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% if (moderatorRole) { %>
-            <span data-tooltip="<%=moderatorRole.name%>" data-tooltip-location="top"> <i class="fad fa-gavel" style="color: <%=moderatorRole.hexColor%>;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% if (sponsorRole) { %>
-            <span data-tooltip="<%=sponsorRole.name%>" data-tooltip-location="top"> <i class="fad fa-badge-dollar" style="color: <%=sponsorRole.hexColor%>;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% if (certifiedDeveloper) { %>
-            <span data-tooltip="<%=certifiedDeveloper.name%>" data-tooltip-location="top"> <img draggable="false" src="https://cdn.discordapp.com/emojis/830890748361703484.webp?size=40&quality=lossless" width="32px"></i></span>
-            <% } %>
-            <% if (partnerRoleCache) { %>
-            <span data-tooltip="<%=partnerRoleCache.name%>" data-tooltip-location="top"> <span data-tooltip="PsychoPath Partner" data-tooltip-location="top"><img draggable="false" src="https://cdn.discordapp.com/emojis/903320511524769832.webp?size=40&quality=lossless" width="32px"></span></span>
-            <% } %>
-            <% if (supporterRole) { %>
-            <span data-tooltip="<%=supporterRole.name%>" data-tooltip-location="top"> <i class="fad fa-star" style="color: <%=supporterRole.hexColor%>;bottom: -5px; font-size: 26px;"></i></span>
-            <% } %>
-            <% } %>
-        </div>
-        
-        
-        
-        
-        
         
         <br><br>
         <%= member.user.tag %>
       </h2>
       <h5 style="color: <%= color %>">
         <%= auth %>
-      </h5>
+
+        </h5>
       <br><br>
       <div class="row row-cols-1 row-cols-md-3">
       <h4>
