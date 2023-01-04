@@ -6,22 +6,9 @@
       <h2 class="text-center" style="margin-top: 100px;">
         <img src="<%= member.user.avatarURL({ dynamic: true }) %>" style="border-radius: 100%; width: 100px; height: 100px;">
 
-        
-        
-        
-        
-        
-
-        
         <br><br>
         <%= member.user.tag %>
-          
-
-          
-          
-          
-          
-          
+   
       </h2>
       <h5 style="color: <%= color %>">
         <%= auth %>
@@ -44,7 +31,7 @@
       <h3>
         Paylaştığı kodlar:<br>
         <% data.codes.sort((a, b) => b.date - a.date).map(x => { %>
-        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %></a>
+        <a href="/<%= x.rank %>/<%= x.id %>" style="text-decoration: none; font-size: 23px;"><%= x.name %></a><br>
         <% }); %>
       </h3>
       <% } %>
