@@ -771,11 +771,32 @@ const randomStr = (length) => {
   }
   return result;
 }
+client.on("ready", () => {
+  console.log("Site Hazır!");
+  setInterval(() => {
+const psycho = client.guilds.cache.get("854750196315062302")
+if(!psycho){
+console.log("Lütfen bir sunucu ismi girin")
+}
+if(psycho){
+ setTimeout(() => {
+ psycho.setName("PsychoPath Technology")
+  }, 4000) //1000=1saniye
+    setTimeout(() => {
+ psycho.setName("PsychoPath #YetkiliAlım")
+ }, 4000)//1000=1saniye
+    setTimeout(() => {
+  psycho.setName("PsychoPath #Serverlist")
+ }, 4000)//1000=1saniye
+      setTimeout(() => {
+ psycho.setName("PsychoPath #Botlist")
+ }, 4000)//1000=1saniye
+}
+}, 2000) //döng
+});
+
 // </> Functions </>
 
 app.listen(process.env.PORT || 3000);
 client.login(settings.token).catch((err) => console.log(err));
 
-client.on("ready", () => {
-  console.log("Site Hazır!");
-});
