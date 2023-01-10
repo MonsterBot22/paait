@@ -39,13 +39,13 @@
       <li class="deneme nav-item dropdown">
         <a class="deneme nav-link dropdown-toggle"><i class="fa-solid fa-code"></i> Kodlar</a>
         <div class="dropdown-menu bg-transparent">
-          <a class="dropdown-item" href="/normal"><i class="fa-solid fa-brackets-curly"></i> Normal Kodlar</a>
-          <a class="dropdown-item" href="/bdfd"><i class="fa-solid fa-brackets-curly"></i> BDFD Kodlar</a>
-          <a class="dropdown-item" href="/gold"><i class="fa-solid fa-brackets-curly"></i> Altın Kodlar</a>
-          <a class="dropdown-item" href="/diamond"><i class="fa-solid fa-brackets-curly"></i> Elmas Kodlar</a>
-          <a class="dropdown-item" href="/ready"><i class="fa-solid fa-brackets-curly"></i> Hazır Sistemler</a>
+          <a class="dropdown-item" href="/normal"><i class="fa-solid fa-bracket-curly"></i> Normal Kodlar <i class="fa-solid fa-bracket-curly-right"></i></a>
+          <a class="dropdown-item" href="/bdfd"><i class="fa-solid fa-bracket-curly"></i> BDFD Kodlar <i class="fa-solid fa-bracket-curly-right"></i> </a>
+          <a class="dropdown-item" href="/gold"><i class="fa-solid fa-bracket-curly"></i> Altın Kodlar <i class="fa-solid fa-bracket-curly-right"></i></a>
+          <a class="dropdown-item" href="/diamond"> Elmas Kodlar <i class="fa-solid fa-bracket-curly-right"></i></a>
+          <a class="dropdown-item" href="/ready">Hazır Sistemler <i class="fa-solid fa-bracket-curly-right"></i></a>
           <div class="dropdown-divider" style="border-top:1px solid #20262c"></div>
-            <a class="dropdown-item" href="/fromyou"><i class="fa-brackets-curly"></i> Sizden gelenler</a>
+            <a class="dropdown-item" href="/fromyou"> Sizden gelenler </a>
         </div>
       </li>
       
@@ -61,7 +61,7 @@
         <a class="nav-link" href="/discord"><i class="fa-brands fa-discord"></i> Discord</a>
       </li>
       <li class="deneme nav-item">
-        <a class="nav-link" href="/information"><i class="fa-sharp fa-solid fa-square-info"></i> Bilgilendirme</a>
+        <a class="nav-link" href="/information"><i class="fa-sharp fa-solid fa-circle-info"></i> Bilgilendirme</a>
       </li>
       <li class="deneme nav-item">
         <a class="nav-link" href="/yetkililer"><i class="fa-solid fa-user-shield"></i> Yetkililerimiz</a>
@@ -72,24 +72,24 @@
            <ul class="navbar-nav" style="margin-right: 20px;">
 
       <li class="nav-item">
-      <a class="nav-link" href="/admin">Admin Paneli</a>
+      <a class="nav-link" href="/admin"><i class="fa-solid fa-star"></i> Admin Paneli</a>
       </li>
       <li class="deneme nav-item">
-      <a class="nav-link" href="/share">Kod Paylaş</a>
+      <a class="nav-link" href="/share"><i class="fa-solid fa-file-circle-plus"></i> Kod Paylaş</a>
       </li>
 
       <li class="deneme nav-item dropdown">
-        <a class="nav-link dropdown-toggle"><%= user.username %></a>
+        <a class="nav-link dropdown-toggle"><i class="fa-solid fa-user"></i> <!-- <%= user.username %> --></a>
         <div class="dropdown-menu bg-transparent dropdown-menu-right">
-         <a class="dropdown-item" href="/profile/<%= user.id %>">Profil</a>
+         <a class="dropdown-item" href="/profile/<%= user.id %>"><i class="fa-solid fa-address-card"></i> Profil</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/logout">Çıkış Yap</a>
+          <a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
         </div>
       </li>
     </ul>
 
     <% } else { %>
-      <a class="button1" style="margin-right: 20px; filter: invert(1);" href="/login">Giriş Yap</a>
+      <a class="button1" style="margin-right: 20px; filter: invert(1);" href="/login"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</a>
     <% } %>
   </div>
 </nav>
